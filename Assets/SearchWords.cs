@@ -2,19 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class SearchWords : MonoBehaviour
 {
+    public InputField field { get; set; }
+    public bool AllInactive { get; set; }
+
     [SerializeField]
     private Dictionary wordsList;
+    [SerializeField]
+    private Text WarningText;
+
     private List<GameObject> ActiveWords;
-    private InputField field;
 
     void Start()
     {
         field = GetComponent<InputField>();
     }
 
+    /// <summary>
+    /// from the string in the input field searches for every word wich contains similar string
+    /// if the word is not found the program prints a message
+    /// </summary>
     public void SearchText()
     {
         if (!string.IsNullOrEmpty(field.text))
@@ -37,6 +47,16 @@ public class SearchWords : MonoBehaviour
             {
                 word.SetActive(true);
             }
+        }
+
+        AllInactive = !wordsList.WordsPool.Any(obj => obj.activeInHierarchy == true);
+        if (AllInactive)
+        {
+            WarningText.text = "This word is not found in the dictionary, press Add Word Button to add it to the Dictionary!";
+        }
+        else
+        {
+            WarningText.text = " ";
         }
     }
 }

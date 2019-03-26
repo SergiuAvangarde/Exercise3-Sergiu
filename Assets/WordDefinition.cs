@@ -15,6 +15,9 @@ public class WordDefinition : MonoBehaviour
         TextField = GetComponent<Text>();
     }
 
+    /// <summary>
+    /// shows this word with it's definition to the UI
+    /// </summary>
     public void UpdateText()
     {
         TextField.text = Word + " = " + Definition;

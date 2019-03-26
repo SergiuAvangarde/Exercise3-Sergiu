@@ -79,6 +79,10 @@
         {
             "Word": "test",
             "Definition": "I put this here for testing purposes :D"
+        },
+        {
+            "Word": "ultimate",
+            "Definition": "happening at the end of a long process"
         }
     ]
 }

@@ -37,9 +37,7 @@ public class Dictionary : MonoBehaviour
 
         for (int i = 0; i < wordPoolLength; i++)
         {
-            var WordObj = Instantiate(WordPrefab, WordsList);
-            WordObj.SetActive(false);
-            WordsPool.Add(WordObj);
+            InstantiateWordObj();
         }
 
         RefreshWords();
@@ -48,10 +46,19 @@ public class Dictionary : MonoBehaviour
         //{
         //    print("Z-A: word: " + word.Key + " is: " + word.Value);
         //}
-        SaveData();
     }
 
-    public void RefreshWords()
+    public void InstantiateWordObj()
+    {
+        var WordObj = Instantiate(WordPrefab, WordsList);
+        WordObj.SetActive(false);
+        WordsPool.Add(WordObj);
+    }
+
+    /// <summary>
+    /// searches the dictionary and adds the words with the definitions to the UI list
+    /// </summary>
+    public void RefreshWords(/*SortedDictionary<string, string> words*/)
     {
         foreach (var wordObj in WordsPool)
         {
@@ -79,14 +86,21 @@ public class Dictionary : MonoBehaviour
                 }
             }
         }
+        SaveData();
     }
 
+    /// <summary>
+    /// Save the dictionary information to a json file
+    /// </summary>
     private void SaveData()
     {
         string contents = JsonUtility.ToJson(wordsClassListObj, true);
         File.WriteAllText(JsonPath, contents);
     }
 
+    /// <summary>
+    /// load the dictionary information from the json file
+    /// </summary>
     private void LoadData()
     {
         string contents = File.ReadAllText(JsonPath);
