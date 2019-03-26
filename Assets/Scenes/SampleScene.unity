@@ -1228,7 +1228,7 @@ GameObject:
   - component: {fileID: 945129553}
   - component: {fileID: 945129552}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1334,7 +1334,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -650, y: 450}
-  m_SizeDelta: {x: 450, y: 70}
+  m_SizeDelta: {x: 450, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &950352693
 MonoBehaviour:
@@ -2165,7 +2165,7 @@ GameObject:
   - component: {fileID: 1737359177}
   - component: {fileID: 1737359176}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AddWord
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

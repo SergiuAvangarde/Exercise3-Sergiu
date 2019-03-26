@@ -22,7 +22,8 @@ public class Dictionary : MonoBehaviour
     private void Start()
     {
         wordsClassListObj.WordsClass = new List<WordClass>();
-        JsonPath = Application.persistentDataPath + "/Dictionary.json";
+        JsonPath = Application.dataPath + "/Dictionary.json";
+        Debug.Log(JsonPath);
 
         if (File.Exists(JsonPath))
         {
