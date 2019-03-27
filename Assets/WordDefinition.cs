@@ -5,21 +5,56 @@ using UnityEngine.UI;
 
 public class WordDefinition : MonoBehaviour
 {
+    public GameObject EditPanel { get; set; }
     public string Word;
     public string Definition;
 
-    private Text TextField;
+    //private Transform editPanelTransformCache;
+    private Text textField;
+    private Toggle toggleButton;
 
     private void Awake()
     {
-        TextField = GetComponent<Text>();
+        textField = GetComponent<Text>();
+        toggleButton = GetComponent<Toggle>();
     }
+
+    public void ShowName()
+    {
+        Debug.Log(Word);
+    }
+
+    //public void ToggleSelected()
+    //{
+    //    if (toggleButton.isOn)
+    //    {
+    //        EditPanel.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        EditPanel.SetActive(false);
+    //    }
+    //}
 
     /// <summary>
     /// shows this word with it's definition to the UI
     /// </summary>
     public void UpdateText()
     {
-        TextField.text = Word + " = " + Definition;
+        textField.text = Word + " = " + Definition;
+    }
+
+    public void OnEditPress()
+    {
+        EditPanel.GetComponent<EditWords>().editWordInput = GetComponent<WordDefinition>();
+        EditPanel.SetActive(true);
+    }
+
+    public void OnRemovePress()
+    {
+        Dictionary.Instance.words.Remove(Word);
+        Dictionary.Instance.RefreshWords();
+        gameObject.SetActive(false);
+        Debug.Log(Word + " removed");
     }
 }

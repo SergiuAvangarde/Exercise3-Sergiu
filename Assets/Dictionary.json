@@ -1,10 +1,6 @@
 {
     "WordsClass": [
         {
-            "Word": "a",
-            "Definition": "used before countable or singular nouns referring to people or things that have not already been mentioned"
-        },
-        {
             "Word": "abandon",
             "Definition": "to leave somebody, especially somebody you are responsible for, with no intention of returning"
         },
@@ -19,14 +15,6 @@
         {
             "Word": "admire",
             "Definition": "to respect somebody for what they have done or to respect their qualities"
-        },
-        {
-            "Word": "ball",
-            "Definition": "a round object used for throwing, hitting or kicking in games and sports"
-        },
-        {
-            "Word": "basic",
-            "Definition": "forming the part of something that is most necessary and from which other things develop"
         },
         {
             "Word": "bathroom",
@@ -61,24 +49,8 @@
             "Definition": "costing little money or less money than you expected"
         },
         {
-            "Word": "concert",
-            "Definition": "a public performance of music"
-        },
-        {
-            "Word": "control",
-            "Definition": "control (of/over somebody/something) the power to make decisions about how a country, an area, an organization, etc. is run"
-        },
-        {
-            "Word": "curious",
-            "Definition": "curious (about something) | curious (to do something) having a strong desire to know about something"
-        },
-        {
-            "Word": "damage",
-            "Definition": "damage (to something) physical harm caused to something which makes it less attractive, useful or valuable"
-        },
-        {
-            "Word": "test",
-            "Definition": "I put this here for testing purposes :D"
+            "Word": "tablet",
+            "Definition": "a small round solid piece of medicine that you swallow"
         },
         {
             "Word": "ultimate",

@@ -10,8 +10,6 @@ public class SearchWords : MonoBehaviour
     public bool AllInactive { get; set; }
 
     [SerializeField]
-    private Dictionary wordsList;
-    [SerializeField]
     private Text WarningText;
 
     private List<GameObject> ActiveWords;
@@ -29,7 +27,7 @@ public class SearchWords : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(field.text))
         {
-            foreach (var word in wordsList.WordsPool)
+            foreach (var word in Dictionary.Instance.WordsPool)
             {
                 if (!word.GetComponent<WordDefinition>().Word.ToLower().Trim().Contains(field.text.ToLower().Trim()))
                 {
@@ -43,13 +41,13 @@ public class SearchWords : MonoBehaviour
         }
         else
         {
-            foreach (var word in wordsList.WordsPool)
+            foreach (var word in Dictionary.Instance.WordsPool)
             {
                 word.SetActive(true);
             }
         }
 
-        AllInactive = !wordsList.WordsPool.Any(obj => obj.activeInHierarchy == true);
+        AllInactive = !Dictionary.Instance.WordsPool.Any(obj => obj.activeInHierarchy == true);
         if (AllInactive)
         {
             WarningText.text = "This word is not found in the dictionary, press Add Word Button to add it to the Dictionary!";

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class AddWords : MonoBehaviour
 {
     [SerializeField]
-    private Dictionary manager;
-    [SerializeField]
     private SearchWords searchInput;
     [SerializeField]
     private InputField wordInput;
@@ -29,9 +27,11 @@ public class AddWords : MonoBehaviour
     {
         if(!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-            manager.words.Add(wordInput.text, descriptionInput.text);
-            manager.InstantiateWordObj();
-            manager.RefreshWords();
+            Dictionary.Instance.words.Add(wordInput.text, descriptionInput.text);
+            Dictionary.Instance.InstantiateWordObj();
+            Dictionary.Instance.RefreshWords();
+            wordInput.text = "";
+            descriptionInput.text = "";
             gameObject.SetActive(false);
         }
         else
