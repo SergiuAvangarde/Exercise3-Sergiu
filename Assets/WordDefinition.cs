@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WordDefinition : MonoBehaviour
+public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    public GameObject EditPanel { get; set; }
     public string Word;
     public string Definition;
 
@@ -19,18 +19,6 @@ public class WordDefinition : MonoBehaviour
         toggleButton = GetComponent<Toggle>();
     }
 
-    //public void ToggleSelected()
-    //{
-    //    if (toggleButton.isOn)
-    //    {
-    //        EditPanel.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        EditPanel.SetActive(false);
-    //    }
-    //}
-
     /// <summary>
     /// shows this word with it's definition to the UI
     /// </summary>
@@ -39,15 +27,33 @@ public class WordDefinition : MonoBehaviour
         textField.text = Word + " = " + Definition;
     }
 
-    public void OnEditPress()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        EditPanel.GetComponent<EditWords>().editWordInput = GetComponent<WordDefinition>();
-        EditPanel.SetActive(true);
+        if (toggleButton.isOn)
+        {
+            Dictionary.Instance.EditWordPanel.SetActive(false);
+            Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
+            Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>().anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
+            Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>().editWordInput = GetComponent<WordDefinition>();
+        }
+        else
+        {
+            Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
+        }
     }
 
-    public void OnRemovePress()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        Dictionary.Instance.words.Remove(Word);
-        Dictionary.Instance.RefreshWords();
+        if (toggleButton.isOn)
+        {
+            Dictionary.Instance.EditWordPanel.SetActive(false);
+            Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
+            Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>().anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
+            Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>().editWordInput = GetComponent<WordDefinition>();
+        }
+        else
+        {
+            Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
+        }
     }
 }

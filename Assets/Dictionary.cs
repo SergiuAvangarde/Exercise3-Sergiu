@@ -10,13 +10,17 @@ public class Dictionary : MonoBehaviour
     public static Dictionary Instance = null;
     public SortedDictionary<string, string> words = new SortedDictionary<string, string>();
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
+    public GameObject EditOrRemovePopUp;
+    public GameObject EditWordPanel;
 
     [SerializeField]
     private GameObject WordPrefab;
     [SerializeField]
     private GameObject WordsListContent;
     [SerializeField]
-    private GameObject editPanel;
+    private Button sortAZ;
+    [SerializeField]
+    private Button sortZA;
 
     private RectTransform transformCache;
     private ToggleGroup toggleGroupCache;
@@ -77,14 +81,15 @@ public class Dictionary : MonoBehaviour
     /// </summary>
     public void RefreshWords()
     {
-        //if(sortAZ){
-        SortedDictionary<string, string> wordsDictionary = new SortedDictionary<string, string>();
-        wordsDictionary = words;
-        //}
-        //else if(sortZA)
-        //{
-        //var wordsDictionary = words.Reverse();
-        //}
+        IEnumerable<KeyValuePair<string,string>> wordsDictionary = words;
+        if (sortAZ.IsActive())
+        {
+            wordsDictionary = words;
+        }
+        else if (sortZA.IsActive())
+        {
+            wordsDictionary = words.Reverse();
+        }
         wordsClassListObj.WordsClass = new List<WordClass>();
 
         foreach (var wordObj in WordsPool)
@@ -102,13 +107,11 @@ public class Dictionary : MonoBehaviour
                     var WordObjScript = wordObj.GetComponent<WordDefinition>();
                     WordObjScript.Word = word.Key;
                     WordObjScript.Definition = word.Value;
-                    WordObjScript.EditPanel = editPanel;
                     WordObjScript.UpdateText();
 
                     var wordClassObj = new WordClass();
                     wordClassObj.Word = word.Key;
                     wordClassObj.Definition = word.Value;
-
                     wordsClassListObj.WordsClass.Add(wordClassObj);
                     break;
                 }

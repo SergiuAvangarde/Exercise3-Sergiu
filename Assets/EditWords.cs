@@ -12,12 +12,6 @@ public class EditWords : MonoBehaviour
     [SerializeField]
     private InputField descriptionInput;
 
-    private void OnEnable()
-    {
-        WordInput.text = editWordInput.Word;
-        descriptionInput.text = editWordInput.Definition;
-    }
-
     public void OnEditWordPress()
     {
         if (!string.IsNullOrEmpty(descriptionInput.text))
@@ -28,7 +22,20 @@ public class EditWords : MonoBehaviour
         }
         else
         {
-            print("You need to write description for this to work!");
+            print("You need to write a description for this to work!");
         }
+    }
+
+    public void OpenEditPanel()
+    {
+        Dictionary.Instance.EditWordPanel.SetActive(true);
+        WordInput.text = editWordInput.Word;
+        descriptionInput.text = editWordInput.Definition;
+    }
+
+    public void OnRemovePress()
+    {
+        Dictionary.Instance.words.Remove(editWordInput.Word);
+        Dictionary.Instance.RefreshWords();
     }
 }

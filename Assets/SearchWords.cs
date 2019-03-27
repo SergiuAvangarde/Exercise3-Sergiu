@@ -50,7 +50,7 @@ public class SearchWords : MonoBehaviour
         AllInactive = !Dictionary.Instance.WordsPool.Any(obj => obj.activeInHierarchy == true);
         if (AllInactive)
         {
-            WarningText.text = "This word is not found in the dictionary, press Add Word Button to add it to the Dictionary!";
+            WarningText.text = "This word is not found in the dictionary, press Add Word to add it to the Dictionary!";
         }
         else
         {
