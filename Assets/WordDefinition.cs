@@ -19,11 +19,6 @@ public class WordDefinition : MonoBehaviour
         toggleButton = GetComponent<Toggle>();
     }
 
-    public void ShowName()
-    {
-        Debug.Log(Word);
-    }
-
     //public void ToggleSelected()
     //{
     //    if (toggleButton.isOn)
@@ -54,7 +49,5 @@ public class WordDefinition : MonoBehaviour
     {
         Dictionary.Instance.words.Remove(Word);
         Dictionary.Instance.RefreshWords();
-        gameObject.SetActive(false);
-        Debug.Log(Word + " removed");
     }
 }

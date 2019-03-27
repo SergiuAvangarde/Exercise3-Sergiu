@@ -77,11 +77,11 @@ public class Dictionary : MonoBehaviour
     /// </summary>
     public void RefreshWords()
     {
-        //if(A-Z){
+        //if(sortAZ){
         SortedDictionary<string, string> wordsDictionary = new SortedDictionary<string, string>();
         wordsDictionary = words;
         //}
-        //else if(Z-A)
+        //else if(sortZA)
         //{
         //var wordsDictionary = words.Reverse();
         //}

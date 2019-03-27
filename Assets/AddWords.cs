@@ -32,6 +32,7 @@ public class AddWords : MonoBehaviour
             Dictionary.Instance.RefreshWords();
             wordInput.text = "";
             descriptionInput.text = "";
+            searchInput.field.text = "";
             gameObject.SetActive(false);
         }
         else
