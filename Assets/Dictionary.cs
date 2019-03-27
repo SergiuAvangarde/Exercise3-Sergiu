@@ -8,7 +8,7 @@ using System.IO;
 public class Dictionary : MonoBehaviour
 {
     public static Dictionary Instance = null;
-    public SortedDictionary<string, string> words = new SortedDictionary<string, string>();
+    public SortedDictionary<string, string> Words = new SortedDictionary<string, string>();
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
     public GameObject EditOrRemovePopUp;
     public GameObject EditWordPanel;
@@ -21,14 +21,20 @@ public class Dictionary : MonoBehaviour
     private Button sortAZ;
     [SerializeField]
     private Button sortZA;
+    [SerializeField]
+    private AddWords addedWord;
+    [SerializeField]
+    private ScrollRect scroll;
 
     private RectTransform transformCache;
     private ToggleGroup toggleGroupCache;
-
     private WordClassList wordsClassListObj = new WordClassList();
-    private string JsonPath;
+    private string jsonPath;
     private int wordPoolLength = 0;
 
+    /// <summary>
+    /// create a Singleton of this script and cache the required components
+    /// </summary>
     private void Awake()
     {
         if (Instance == null)
@@ -40,19 +46,22 @@ public class Dictionary : MonoBehaviour
         toggleGroupCache = WordsListContent.GetComponent<ToggleGroup>();
     }
 
+    /// <summary>
+    /// On initialization the program searches for a json file with the dictionary information and prints every word to UI
+    /// </summary>
     private void Start()
     {
-        JsonPath = Application.dataPath + "/Dictionary.json";
-        Debug.Log(JsonPath);
+        jsonPath = Application.dataPath + "/Dictionary.json";
+        Debug.Log(jsonPath);
 
-        if (File.Exists(JsonPath))
+        if (File.Exists(jsonPath))
         {
             LoadData();
         }
 
-        if (wordPoolLength < words.Count)
+        if (wordPoolLength < Words.Count)
         {
-            wordPoolLength = words.Count;
+            wordPoolLength = Words.Count;
         }
 
         for (int i = 0; i < wordPoolLength; i++)
@@ -61,13 +70,11 @@ public class Dictionary : MonoBehaviour
         }
 
         RefreshWords();
-
-        //foreach (var word in words.Reverse())
-        //{
-        //    print("Z-A: word: " + word.Key + " is: " + word.Value);
-        //}
     }
 
+    /// <summary>
+    /// Instantiate a new object in the object pool for words
+    /// </summary>
     public void InstantiateWordObj()
     {
         var WordObj = Instantiate(WordPrefab, transformCache);
@@ -81,14 +88,14 @@ public class Dictionary : MonoBehaviour
     /// </summary>
     public void RefreshWords()
     {
-        IEnumerable<KeyValuePair<string,string>> wordsDictionary = words;
+        IEnumerable<KeyValuePair<string, string>> wordsDictionary = Words;
         if (sortAZ.IsActive())
         {
-            wordsDictionary = words;
+            wordsDictionary = Words;
         }
         else if (sortZA.IsActive())
         {
-            wordsDictionary = words.Reverse();
+            wordsDictionary = Words.Reverse();
         }
         wordsClassListObj.WordsClass = new List<WordClass>();
 
@@ -113,6 +120,15 @@ public class Dictionary : MonoBehaviour
                     wordClassObj.Word = word.Key;
                     wordClassObj.Definition = word.Value;
                     wordsClassListObj.WordsClass.Add(wordClassObj);
+
+                    if (addedWord.AddedWord == word.Key)
+                    {
+                        wordObj.GetComponent<Toggle>().isOn = true;
+                        //trying to find a normalized value for scroll position
+                        //float normalizedPos = WordsPool.Count / 100 * wordObj.transform.GetSiblingIndex();
+                        //Debug.Log(normalizedPos);
+                        //scroll.verticalNormalizedPosition = normalizedPos;
+                    }
                     break;
                 }
             }
@@ -126,7 +142,7 @@ public class Dictionary : MonoBehaviour
     private void SaveData()
     {
         string contents = JsonUtility.ToJson(wordsClassListObj, true);
-        File.WriteAllText(JsonPath, contents);
+        File.WriteAllText(jsonPath, contents);
     }
 
     /// <summary>
@@ -134,15 +150,15 @@ public class Dictionary : MonoBehaviour
     /// </summary>
     private void LoadData()
     {
-        string contents = File.ReadAllText(JsonPath);
+        string contents = File.ReadAllText(jsonPath);
         WordClassList TempWordsList = new WordClassList();
         TempWordsList = JsonUtility.FromJson<WordClassList>(contents);
 
         foreach (var wordObj in TempWordsList.WordsClass)
         {
-            if (!words.ContainsKey(wordObj.Word))
+            if (!Words.ContainsKey(wordObj.Word))
             {
-                words.Add(wordObj.Word, wordObj.Definition);
+                Words.Add(wordObj.Word, wordObj.Definition);
             }
         }
     }

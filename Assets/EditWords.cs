@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class EditWords : MonoBehaviour
 {
-    public WordDefinition editWordInput { get; set; }
+    public WordDefinition EditWordInput { get; set; }
 
     [SerializeField]
-    private Text WordInput;
+    private Text wordInput;
     [SerializeField]
     private InputField descriptionInput;
 
@@ -16,7 +16,7 @@ public class EditWords : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(descriptionInput.text))
         {
-            Dictionary.Instance.words[editWordInput.Word] = descriptionInput.text;
+            Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
             Dictionary.Instance.RefreshWords();
             gameObject.SetActive(false);
         }
@@ -29,13 +29,13 @@ public class EditWords : MonoBehaviour
     public void OpenEditPanel()
     {
         Dictionary.Instance.EditWordPanel.SetActive(true);
-        WordInput.text = editWordInput.Word;
-        descriptionInput.text = editWordInput.Definition;
+        wordInput.text = EditWordInput.Word;
+        descriptionInput.text = EditWordInput.Definition;
     }
 
     public void OnRemovePress()
     {
-        Dictionary.Instance.words.Remove(editWordInput.Word);
+        Dictionary.Instance.Words.Remove(EditWordInput.Word);
         Dictionary.Instance.RefreshWords();
     }
 }

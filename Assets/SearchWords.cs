@@ -12,8 +12,6 @@ public class SearchWords : MonoBehaviour
     [SerializeField]
     private Text WarningText;
 
-    private List<GameObject> ActiveWords;
-
     void Start()
     {
         field = GetComponent<InputField>();

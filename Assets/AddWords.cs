@@ -12,6 +12,8 @@ public class AddWords : MonoBehaviour
     [SerializeField]
     private InputField descriptionInput;
 
+    public string AddedWord;
+
     private void OnEnable()
     {
         if (searchInput.AllInactive)
@@ -27,7 +29,8 @@ public class AddWords : MonoBehaviour
     {
         if(!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-            Dictionary.Instance.words.Add(wordInput.text, descriptionInput.text);
+            AddedWord = wordInput.text;
+            Dictionary.Instance.Words.Add(wordInput.text, descriptionInput.text);
             Dictionary.Instance.InstantiateWordObj();
             Dictionary.Instance.RefreshWords();
             wordInput.text = "";

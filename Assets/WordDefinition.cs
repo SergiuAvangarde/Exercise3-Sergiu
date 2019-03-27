@@ -9,14 +9,18 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public string Word;
     public string Definition;
 
-    //private Transform editPanelTransformCache;
     private Text textField;
     private Toggle toggleButton;
+
+    private RectTransform PopUpCachedTransform;
+    private EditWords PopUpCachedScript;
 
     private void Awake()
     {
         textField = GetComponent<Text>();
         toggleButton = GetComponent<Toggle>();
+        PopUpCachedTransform = Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
+        PopUpCachedScript = Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>();
     }
 
     /// <summary>
@@ -27,18 +31,19 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         textField.text = Word + " = " + Definition;
     }
 
+
+    /// <summary>
+    /// these two functions make the same thing, I used them both because only using one of them did not work in some cases
+    /// if the toggle button is on the position for the PopUp with the Edit or Remove buttons changes acording to mouse position
+    /// </summary>
     public void OnPointerClick(PointerEventData eventData)
     {
         if (toggleButton.isOn)
         {
             Dictionary.Instance.EditWordPanel.SetActive(false);
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>().anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
-            Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>().editWordInput = GetComponent<WordDefinition>();
-        }
-        else
-        {
-            Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
+            PopUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
+            PopUpCachedScript.EditWordInput = GetComponent<WordDefinition>();
         }
     }
 
@@ -46,10 +51,9 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         if (toggleButton.isOn)
         {
-            Dictionary.Instance.EditWordPanel.SetActive(false);
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>().anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
-            Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>().editWordInput = GetComponent<WordDefinition>();
+            PopUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
+            PopUpCachedScript.EditWordInput = GetComponent<WordDefinition>();
         }
         else
         {

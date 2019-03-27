@@ -567,15 +567,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29147384, g: 0.3346106, b: 0.4716981, a: 1}
+  m_Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 29e97a8c30084e045a08d75cadc938c1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -993,6 +993,8 @@ MonoBehaviour:
   WordsListContent: {fileID: 693667597}
   sortAZ: {fileID: 1390873723}
   sortZA: {fileID: 1279211817}
+  addedWord: {fileID: 417557212}
+  scroll: {fileID: 363593148}
 --- !u!4 &311007986
 Transform:
   m_ObjectHideFlags: 0
@@ -1061,7 +1063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6839622, g: 0.75785714, b: 1, a: 0.19607843}
+  m_Color: {r: 0.39215687, g: 1, b: 0.9891519, a: 0.078431375}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1212,6 +1214,7 @@ MonoBehaviour:
   searchInput: {fileID: 950352696}
   wordInput: {fileID: 1387624170}
   descriptionInput: {fileID: 4273305}
+  AddedWord: 
 --- !u!1 &495167431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1822,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 100
     m_Right: 100
-    m_Top: 80
+    m_Top: 10
     m_Bottom: 50
   m_ChildAlignment: 0
   m_Spacing: 25
@@ -4660,7 +4663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4728,5 +4731,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5da472287291c44a825243facb6e758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WordInput: {fileID: 664328079}
+  wordInput: {fileID: 664328079}
   descriptionInput: {fileID: 39350949}

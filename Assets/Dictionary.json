@@ -13,6 +13,10 @@
             "Definition": "a little more or less than; a little before or after"
         },
         {
+            "Word": "above",
+            "Definition": "at or to a higher place or position than something/somebody"
+        },
+        {
             "Word": "admire",
             "Definition": "to respect somebody for what they have done or to respect their qualities"
         },
@@ -23,6 +27,10 @@
         {
             "Word": "battery",
             "Definition": "a device that is placed inside a car engine, clock, radio, etc. and that produces the electricity that makes it work"
+        },
+        {
+            "Word": "beard",
+            "Definition": "hair that grows on the chin and cheeks of a man’s face; similar hair that grows on some animals"
         },
         {
             "Word": "breakfast",
@@ -47,6 +55,14 @@
         {
             "Word": "cheap",
             "Definition": "costing little money or less money than you expected"
+        },
+        {
+            "Word": "cool",
+            "Definition": "fairly cold; not hot or warm"
+        },
+        {
+            "Word": "date",
+            "Definition": "a particular day of the month, sometimes in a particular year, given in numbers and words"
         },
         {
             "Word": "earth",
@@ -121,6 +137,18 @@
             "Definition": "a tube through which liquids and gases can flow"
         },
         {
+            "Word": "quarter",
+            "Definition": "one of four equal parts of something"
+        },
+        {
+            "Word": "regular",
+            "Definition": "following a pattern, especially with the same time or space in between each thing and the next"
+        },
+        {
+            "Word": "relax",
+            "Definition": "to rest while you are doing something enjoyable, especially after work or effort"
+        },
+        {
             "Word": "sad",
             "Definition": "unhappy or showing unhappiness"
         },
@@ -131,6 +159,10 @@
         {
             "Word": "scare",
             "Definition": "to frighten somebody"
+        },
+        {
+            "Word": "scissors",
+            "Definition": "a tool for cutting paper or cloth, that has two sharp blades with handles, joined together in the middle"
         },
         {
             "Word": "screen",
