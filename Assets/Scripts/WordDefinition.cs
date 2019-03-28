@@ -12,6 +12,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private Text textField;
     private Toggle toggleButton;
     private RectTransform popUpCachedTransform;
+    private RectTransform WordCachedTransform;
     private EditWords popUpCachedScript;
     private WordDefinition wordDefinitionCache;
     private string[] definitionWords;
@@ -20,6 +21,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         textField = GetComponent<Text>();
         toggleButton = GetComponent<Toggle>();
+        WordCachedTransform = gameObject.GetComponent<RectTransform>();
         popUpCachedTransform = Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
         popUpCachedScript = Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>();
         wordDefinitionCache = GetComponent<WordDefinition>();
@@ -44,8 +46,12 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             Dictionary.Instance.EditWordPanel.SetActive(false);
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
+            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, WordCachedTransform.position.y + WordCachedTransform.rect.height/2, Input.mousePosition.z);
             popUpCachedScript.EditWordInput = wordDefinitionCache;
+        }
+        else
+        {
+            Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
         }
     }
 
@@ -54,7 +60,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         if (toggleButton.isOn)
         {
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, gameObject.transform.position.y + 80, Input.mousePosition.z);
+            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, WordCachedTransform.position.y + WordCachedTransform.rect.height/2, Input.mousePosition.z);
             popUpCachedScript.EditWordInput = wordDefinitionCache;
         }
         else
