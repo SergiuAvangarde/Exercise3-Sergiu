@@ -1,4 +1,4 @@
-# Exercise3-Sergiu, Dictionary
+# Dictionary - Sergiu
 
 This app is an english dictionary with a list of words and definitions for each of the word.
 The list is saved into a json file at runtime, and at startup the program loads every word and definition from the json file.
