@@ -29,6 +29,7 @@ public class Dictionary : MonoBehaviour
     private RectTransform transformCache;
     private ToggleGroup toggleGroupCache;
     private WordClassList wordsClassListObj = new WordClassList();
+    private float addedWordPosition;
     private string jsonPath;
     private int wordPoolLength = 0;
 
@@ -115,24 +116,20 @@ public class Dictionary : MonoBehaviour
                     WordObjScript.Word = word.Key;
                     WordObjScript.Definition = word.Value;
                     WordObjScript.UpdateText();
+                    if (addedWord.AddedWord == word.Key)
+                    {
+                        wordObj.GetComponent<Toggle>().isOn = true;
+                    }
 
                     var wordClassObj = new WordClass();
                     wordClassObj.Word = word.Key;
                     wordClassObj.Definition = word.Value;
                     wordsClassListObj.WordsClass.Add(wordClassObj);
-
-                    if (addedWord.AddedWord == word.Key)
-                    {
-                        wordObj.GetComponent<Toggle>().isOn = true;
-                        //trying to find a normalized value for scroll position
-                        //float normalizedPos = WordsPool.Count / 100 * wordObj.transform.GetSiblingIndex();
-                        //Debug.Log(normalizedPos);
-                        //scroll.verticalNormalizedPosition = normalizedPos;
-                    }
                     break;
                 }
             }
         }
+        StartCoroutine(WaitUpdate());
         SaveData();
     }
 
@@ -161,5 +158,22 @@ public class Dictionary : MonoBehaviour
                 Words.Add(wordObj.Word, wordObj.Definition);
             }
         }
+    }
+
+    private IEnumerator WaitUpdate()
+    {
+        yield return new WaitForSeconds(0.1f);
+        addedWordPosition = 0;
+
+        foreach (var toggle in toggleGroupCache.ActiveToggles())
+        {
+            addedWordPosition = Mathf.Abs(toggle.transform.localPosition.y);
+        }
+
+        float normalizedPosition = addedWordPosition / transformCache.rect.height;
+        Debug.Log("object position: " + addedWordPosition);
+        Debug.Log("total height: " + transformCache.rect.height);
+        Debug.Log("result: " + normalizedPosition);
+        scroll.verticalNormalizedPosition = 1 - normalizedPosition;
     }
 }

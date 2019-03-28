@@ -1,6 +1,10 @@
 {
     "WordsClass": [
         {
+            "Word": "a",
+            "Definition": "used before countable or singular nouns referring to people or things that have not already been mentioned"
+        },
+        {
             "Word": "abandon",
             "Definition": "to leave somebody, especially somebody you are responsible for, with no intention of returning"
         },
@@ -65,6 +69,30 @@
             "Definition": "a particular day of the month, sometimes in a particular year, given in numbers and words"
         },
         {
+            "Word": "defeat",
+            "Definition": "defeat somebody/something to win against somebody in a war, competition, sports game, etc."
+        },
+        {
+            "Word": "detail",
+            "Definition": "a small individual fact or item; a less important fact or item"
+        },
+        {
+            "Word": "device",
+            "Definition": "an object or a piece of equipment that has been designed to do a particular job"
+        },
+        {
+            "Word": "devoted",
+            "Definition": "devoted (to somebody/something) having great love for somebody/something and being loyal to them"
+        },
+        {
+            "Word": "dictionary",
+            "Definition": "a book that gives a list of the words of a language in alphabetical order and explains what they mean, or gives a word for them in a foreign language"
+        },
+        {
+            "Word": "different",
+            "Definition": "different (from/to/than somebody/something) not the same as somebody/something; not like somebody/something else"
+        },
+        {
             "Word": "earth",
             "Definition": "he world; the planet that we live on"
         },
@@ -77,12 +105,48 @@
             "Definition": "the relationship between production, trade and the supply of money in a particular country or region"
         },
         {
+            "Word": "egg",
+            "Definition": "a small oval object with a thin hard shell produced by a female bird and containing a young bird; a similar object produced by a female fish, insect, etc."
+        },
+        {
+            "Word": "elevator",
+            "Definition": "a machine that carries people or goods up and down to different levels in a building or a mine"
+        },
+        {
             "Word": "encounter",
             "Definition": "to experience something, especially something unpleasant or difficult, while you are trying to do something else"
         },
         {
+            "Word": "engage",
+            "Definition": "engage something (formal) to succeed in attracting and keeping somebody’s attention and interest"
+        },
+        {
+            "Word": "engineer",
+            "Definition": "a person whose job involves designing and building engines, machines, roads, bridges, etc."
+        },
+        {
             "Word": "enjoy",
             "Definition": "to get pleasure from something"
+        },
+        {
+            "Word": "envelope",
+            "Definition": "a flat paper container used for sending letters in"
+        },
+        {
+            "Word": "estimate",
+            "Definition": "a judgement that you make without having the exact details or figures about the size, amount, cost, etc. of something"
+        },
+        {
+            "Word": "etc.",
+            "Definition": "used after a list to show that there are other things that you could have mentioned (the abbreviation for ‘et cetera’)"
+        },
+        {
+            "Word": "evening",
+            "Definition": " the part of the day between the afternoon and the time you go to bed"
+        },
+        {
+            "Word": "exception",
+            "Definition": "a person or thing that is not included in a general statement"
         },
         {
             "Word": "happy",
@@ -135,6 +199,26 @@
         {
             "Word": "pipe",
             "Definition": "a tube through which liquids and gases can flow"
+        },
+        {
+            "Word": "planet",
+            "Definition": "[countable] a large round object in space that moves around a star (such as the sun) and receives light from it"
+        },
+        {
+            "Word": "plastic",
+            "Definition": "[uncountable, countable, usually plural] a light strong material that is produced by chemical processes and can be formed into shapes when heated. There are many different types of plastic, used to make different objects and fabrics."
+        },
+        {
+            "Word": "police",
+            "Definition": "(often the police) [plural] an official organization whose job is to make people obey the law and to prevent and solve crime; the people who work for this organization"
+        },
+        {
+            "Word": "preference",
+            "Definition": "[uncountable, singular] preference (for somebody/something) a greater interest in or desire for somebody/something than somebody/something else"
+        },
+        {
+            "Word": "preserve",
+            "Definition": "preserve something to keep a particular quality, feature, etc.; to make sure that something is kept"
         },
         {
             "Word": "quarter",
@@ -191,6 +275,30 @@
         {
             "Word": "ultimate",
             "Definition": "happening at the end of a long process"
+        },
+        {
+            "Word": "uncomfortable",
+            "Definition": "not letting you feel physically comfortable; unpleasant to wear, sit on, etc."
+        },
+        {
+            "Word": "united",
+            "Definition": "joined together as a political unit or by shared aims"
+        },
+        {
+            "Word": "unlucky",
+            "Definition": "unlucky (to do something) having bad luck or happening because of bad luck; not lucky"
+        },
+        {
+            "Word": "unwillingly",
+            "Definition": "without wanting to do or be something, but forced to by other people"
+        },
+        {
+            "Word": "willing",
+            "Definition": "willing (to do something) not objecting to doing something; having no reason for not doing something"
+        },
+        {
+            "Word": "word",
+            "Definition": "[countable] a single unit of language which means something and can be spoken or written"
         }
     ]
 }
