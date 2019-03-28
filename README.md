@@ -4,7 +4,7 @@ This app is an english dictionary with a list of words and definitions for each 
 The list is saved into a json file at runtime, and at startup the program loads every word and definition from the json file.
 The user can search for a word in the dinctionary, if it is not found you can add any new word to the dictionary, you can edit the existing ones, or remove any word from the dictionary.
 
-#Script Logic
+# Script Logic
 
 To save the Dictionary to the json file, I created a Class with two strings word, wich is the key of the dictionary and definition, wich is the value, and for every word in the dictionary I created a list of objects from that class. I serialized every object and then I serialized the list and added it to the json file. For loading the data i created a new temporary list of objects wich then i compare with the existing list, and add them together, this is done because at start-up the program may have some words in the dictionary and I want to keep them if they are not found in the list from the json file.
 At startup I instantiate some gameobjects wich contain all of the information for every word, into an object pool.
