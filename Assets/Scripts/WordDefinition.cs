@@ -30,8 +30,8 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     /// </summary>
     public void UpdateText()
     {
-        textField.text = Word + " = " + Definition;
         definitionWords = Definition.Trim().Split(' ', '.', ',', ';', '/', '(', ')', '[', ']');
+        textField.text = Word + " = " + Definition;
     }
 
     /// <summary>

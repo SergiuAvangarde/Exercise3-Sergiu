@@ -12,6 +12,7 @@ public class Dictionary : MonoBehaviour
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
     public GameObject EditOrRemovePopUp;
     public GameObject EditWordPanel;
+    public string AddedWord { get; set; }
 
     [SerializeField]
     private GameObject wordPrefab;
@@ -23,8 +24,6 @@ public class Dictionary : MonoBehaviour
     private Button sortZA;
     [SerializeField]
     private ScrollRect scroll;
-    [SerializeField]
-    private AddWords addedWord;
 
     private RectTransform transformCache;
     private ToggleGroup toggleGroupCache;
@@ -100,6 +99,11 @@ public class Dictionary : MonoBehaviour
         }
         wordsClassListObj.WordsClass = new List<WordClass>();
 
+        foreach (var toggle in toggleGroupCache.ActiveToggles())
+        {
+            toggle.isOn = false;
+        }
+
         foreach (var wordObj in WordsPool)
         {
             wordObj.SetActive(false);
@@ -116,7 +120,7 @@ public class Dictionary : MonoBehaviour
                     WordObjScript.Word = word.Key;
                     WordObjScript.Definition = word.Value;
                     WordObjScript.UpdateText();
-                    if (addedWord.AddedWord == word.Key)
+                    if (AddedWord == word.Key)
                     {
                         wordObj.GetComponent<Toggle>().isOn = true;
                     }

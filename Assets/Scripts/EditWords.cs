@@ -8,7 +8,7 @@ public class EditWords : MonoBehaviour
     public WordDefinition EditWordInput { get; set; }
 
     [SerializeField]
-    private Text wordInput;
+    private InputField wordInput;
     [SerializeField]
     private InputField descriptionInput;
     [SerializeField]
@@ -22,9 +22,21 @@ public class EditWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(descriptionInput.text))
         {
-            Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
-            Dictionary.Instance.RefreshWords();
-            gameObject.SetActive(false);
+            if (wordInput.text == EditWordInput.Word)
+            {
+                Dictionary.Instance.AddedWord = wordInput.text;
+                Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
+                Dictionary.Instance.RefreshWords();
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                Dictionary.Instance.AddedWord = wordInput.text;
+                Dictionary.Instance.Words.Remove(EditWordInput.Word);
+                Dictionary.Instance.Words.Add(wordInput.text, descriptionInput.text);
+                Dictionary.Instance.RefreshWords();
+                gameObject.SetActive(false);
+            }
         }
         else
         {

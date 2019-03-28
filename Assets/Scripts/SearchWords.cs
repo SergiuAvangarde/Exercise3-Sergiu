@@ -28,7 +28,9 @@ public class SearchWords : MonoBehaviour
         {
             foreach (var word in Dictionary.Instance.WordsPool)
             {
-                if (!word.GetComponent<WordDefinition>().Word.ToLower().Trim().Contains(SearchField.text.ToLower().Trim()))
+                string wordText = word.GetComponent<WordDefinition>().Word.ToLower().Trim();
+                string searchtext = SearchField.text.ToLower().Trim();
+                if (!wordText.Contains(searchtext))
                 {
                     word.SetActive(false);
                 }

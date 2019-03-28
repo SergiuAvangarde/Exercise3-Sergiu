@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class AddWords : MonoBehaviour
 {
-    public string AddedWord;
-
     [SerializeField]
     private InputField wordInput;
     [SerializeField]
@@ -32,11 +30,11 @@ public class AddWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-            AddedWord = wordInput.text;
+            Dictionary.Instance.AddedWord = wordInput.text;
             string definition;
-            if (!Dictionary.Instance.Words.TryGetValue(AddedWord, out definition))
+            if (!Dictionary.Instance.Words.TryGetValue(Dictionary.Instance.AddedWord, out definition))
             {
-                Dictionary.Instance.Words.Add(AddedWord, descriptionInput.text);
+                Dictionary.Instance.Words.Add(Dictionary.Instance.AddedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
                 Dictionary.Instance.RefreshWords();
                 wordInput.text = "";
@@ -49,7 +47,7 @@ public class AddWords : MonoBehaviour
                 warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
                 foreach (var word in Dictionary.Instance.WordsPool)
                 {
-                    if(word.GetComponent<WordDefinition>().Word == AddedWord)
+                    if(word.GetComponent<WordDefinition>().Word == Dictionary.Instance.AddedWord)
                     {
                         word.GetComponent<Toggle>().isOn = true;
                         StartCoroutine(Dictionary.Instance.WaitToUpdate());
