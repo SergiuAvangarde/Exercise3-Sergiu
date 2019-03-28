@@ -14,27 +14,27 @@ public class Dictionary : MonoBehaviour
     public GameObject EditWordPanel;
 
     [SerializeField]
-    private GameObject WordPrefab;
+    private GameObject wordPrefab;
     [SerializeField]
-    private GameObject WordsListContent;
+    private GameObject wordsListContent;
     [SerializeField]
     private Button sortAZ;
     [SerializeField]
     private Button sortZA;
     [SerializeField]
-    private AddWords addedWord;
-    [SerializeField]
     private ScrollRect scroll;
+    [SerializeField]
+    private AddWords addedWord;
 
     private RectTransform transformCache;
     private ToggleGroup toggleGroupCache;
     private WordClassList wordsClassListObj = new WordClassList();
-    private float addedWordPosition;
     private string jsonPath;
+    private float addedWordPosition;
     private int wordPoolLength = 0;
 
     /// <summary>
-    /// create a Singleton of this script and cache the required components
+    /// Before initialization create a singleton of this script and cache the required components
     /// </summary>
     private void Awake()
     {
@@ -43,8 +43,8 @@ public class Dictionary : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-        transformCache = WordsListContent.GetComponent<RectTransform>();
-        toggleGroupCache = WordsListContent.GetComponent<ToggleGroup>();
+        transformCache = wordsListContent.GetComponent<RectTransform>();
+        toggleGroupCache = wordsListContent.GetComponent<ToggleGroup>();
     }
 
     /// <summary>
@@ -78,14 +78,14 @@ public class Dictionary : MonoBehaviour
     /// </summary>
     public void InstantiateWordObj()
     {
-        var WordObj = Instantiate(WordPrefab, transformCache);
+        var WordObj = Instantiate(wordPrefab, transformCache);
         WordObj.SetActive(false);
         WordObj.GetComponent<Toggle>().group = toggleGroupCache;
         WordsPool.Add(WordObj);
     }
 
     /// <summary>
-    /// searches the dictionary and adds the words with the definitions to the UI list
+    /// Search the dictionary and add the words with the definitions to the UI list
     /// </summary>
     public void RefreshWords()
     {
@@ -129,7 +129,7 @@ public class Dictionary : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(WaitUpdate());
+        StartCoroutine(WaitToUpdate());
         SaveData();
     }
 
@@ -143,7 +143,7 @@ public class Dictionary : MonoBehaviour
     }
 
     /// <summary>
-    /// load the dictionary information from the json file
+    /// Load the dictionary information from the json file
     /// </summary>
     private void LoadData()
     {
@@ -160,7 +160,11 @@ public class Dictionary : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitUpdate()
+    /// <summary>
+    /// Move the scroll position to the selected word position
+    /// </summary>
+    /// <returns>wait for the list with words to be updated</returns>
+    public IEnumerator WaitToUpdate()
     {
         yield return new WaitForSeconds(0.1f);
         addedWordPosition = 0;
@@ -171,9 +175,6 @@ public class Dictionary : MonoBehaviour
         }
 
         float normalizedPosition = addedWordPosition / transformCache.rect.height;
-        Debug.Log("object position: " + addedWordPosition);
-        Debug.Log("total height: " + transformCache.rect.height);
-        Debug.Log("result: " + normalizedPosition);
         scroll.verticalNormalizedPosition = 1 - normalizedPosition;
     }
 }

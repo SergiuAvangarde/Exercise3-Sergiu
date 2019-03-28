@@ -6,15 +6,16 @@ using System.Linq;
 
 public class SearchWords : MonoBehaviour
 {
-    public InputField field { get; set; }
-    public bool AllInactive { get; set; }
+    public InputField SearchField { get; set; }
 
     [SerializeField]
-    private Text WarningText;
+    private Text warningText;
+
+    private bool allInactive;
 
     void Start()
     {
-        field = GetComponent<InputField>();
+        SearchField = GetComponent<InputField>();
     }
 
     /// <summary>
@@ -23,11 +24,11 @@ public class SearchWords : MonoBehaviour
     /// </summary>
     public void SearchText()
     {
-        if (!string.IsNullOrEmpty(field.text))
+        if (!string.IsNullOrEmpty(SearchField.text))
         {
             foreach (var word in Dictionary.Instance.WordsPool)
             {
-                if (!word.GetComponent<WordDefinition>().Word.ToLower().Trim().Contains(field.text.ToLower().Trim()))
+                if (!word.GetComponent<WordDefinition>().Word.ToLower().Trim().Contains(SearchField.text.ToLower().Trim()))
                 {
                     word.SetActive(false);
                 }
@@ -45,14 +46,14 @@ public class SearchWords : MonoBehaviour
             }
         }
 
-        AllInactive = !Dictionary.Instance.WordsPool.Any(obj => obj.activeInHierarchy == true);
-        if (AllInactive)
+        allInactive = !Dictionary.Instance.WordsPool.Any(obj => obj.activeInHierarchy == true);
+        if (allInactive)
         {
-            WarningText.text = "This word is not found in the dictionary, press Add Word to add it to the Dictionary!";
+            warningText.text = "This word is not found in the dictionary, press Add Word to add it to the Dictionary!";
         }
         else
         {
-            WarningText.text = " ";
+            warningText.text = " ";
         }
     }
 }

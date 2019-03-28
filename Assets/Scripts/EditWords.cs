@@ -11,9 +11,15 @@ public class EditWords : MonoBehaviour
     private Text wordInput;
     [SerializeField]
     private InputField descriptionInput;
+    [SerializeField]
+    private Text warningText;
 
+    /// <summary>
+    /// change a words descriprion with the one from the input field
+    /// </summary>
     public void OnEditWordPress()
     {
+        warningText.text = "";
         if (!string.IsNullOrEmpty(descriptionInput.text))
         {
             Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
@@ -22,10 +28,13 @@ public class EditWords : MonoBehaviour
         }
         else
         {
-            print("You need to write a description for this to work!");
+            warningText.text = "You need to write a description for this to work!";
         }
     }
 
+    /// <summary>
+    /// open the edit word panel and set the input word and description acording to the word selected
+    /// </summary>
     public void OpenEditPanel()
     {
         Dictionary.Instance.EditWordPanel.SetActive(true);
@@ -33,6 +42,9 @@ public class EditWords : MonoBehaviour
         descriptionInput.text = EditWordInput.Definition;
     }
 
+    /// <summary>
+    /// delete a word from the dictionary and refresh the list
+    /// </summary>
     public void OnRemovePress()
     {
         Dictionary.Instance.Words.Remove(EditWordInput.Word);
