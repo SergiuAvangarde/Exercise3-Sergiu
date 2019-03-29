@@ -31,8 +31,7 @@ public class AddWords : MonoBehaviour
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
             Dictionary.Instance.AddedWord = wordInput.text;
-            string definition;
-            if (!Dictionary.Instance.Words.TryGetValue(Dictionary.Instance.AddedWord, out definition))
+            if (!Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.AddedWord))
             {
                 Dictionary.Instance.Words.Add(Dictionary.Instance.AddedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
@@ -50,7 +49,7 @@ public class AddWords : MonoBehaviour
                     if(word.GetComponent<WordDefinition>().Word == Dictionary.Instance.AddedWord)
                     {
                         word.GetComponent<Toggle>().isOn = true;
-                        StartCoroutine(Dictionary.Instance.WaitToUpdate());
+                        Dictionary.Instance.UpdateLayout();
                     }
                 }
                 gameObject.SetActive(false);

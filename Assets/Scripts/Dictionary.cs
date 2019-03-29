@@ -133,7 +133,7 @@ public class Dictionary : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(WaitToUpdate());
+        UpdateLayout();
         SaveData();
     }
 
@@ -168,9 +168,10 @@ public class Dictionary : MonoBehaviour
     /// Move the scroll position to the selected word position
     /// </summary>
     /// <returns>wait for the list with words to be updated</returns>
-    public IEnumerator WaitToUpdate()
+    public void UpdateLayout()
     {
-        yield return new WaitForSeconds(0.1f);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(transformCache);
+        Canvas.ForceUpdateCanvases();
         addedWordPosition = 0;
 
         foreach (var toggle in toggleGroupCache.ActiveToggles())
