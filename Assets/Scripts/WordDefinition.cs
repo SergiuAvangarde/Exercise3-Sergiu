@@ -10,10 +10,17 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public string Word;
     public string Definition;
     public string SelectedDefinitionWord;
+
+    [HideInInspector]
     public bool MouseOvertext = false;
 
-    private TextMeshProUGUI textMeshField;
+    [SerializeField]
+    private TextMeshProUGUI wordField;
+    [SerializeField]
+    private TextMeshProUGUI definitionField;
+
     private Toggle toggleButton;
+    private Image Image;
     private RectTransform popUpCachedTransform;
     private RectTransform wordPopUpCachedTransform;
     private RectTransform definitionCachedTransform;
@@ -27,7 +34,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     /// </summary>
     private void Awake()
     {
-        textMeshField = GetComponent<TextMeshProUGUI>();
+        Image = GetComponent<Image>();
         toggleButton = GetComponent<Toggle>();
         definitionCachedTransform = gameObject.GetComponent<RectTransform>();
         popUpCachedTransform = Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
@@ -43,12 +50,12 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     /// </summary>
     private void FixedUpdate()
     {
-        int wordIndex = TMP_TextUtilities.FindIntersectingWord(textMeshField, Input.mousePosition, null);
+        int wordIndex = TMP_TextUtilities.FindIntersectingWord(definitionField, Input.mousePosition, null);
 
         // Clear previous word selection.
         if (selectedWordIndex != -1 && (wordIndex == -1 || wordIndex != selectedWordIndex))
         {
-            TMP_WordInfo wInfo = textMeshField.textInfo.wordInfo[selectedWordIndex];
+            TMP_WordInfo wInfo = definitionField.textInfo.wordInfo[selectedWordIndex];
 
             // Iterate through each of the characters of the word.
             for (int i = 0; i < wInfo.characterCount; i++)
@@ -56,13 +63,13 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
                 int characterIndex = wInfo.firstCharacterIndex + i;
 
                 // Get the index of the material / sub text object used by this character.
-                int meshIndex = textMeshField.textInfo.characterInfo[characterIndex].materialReferenceIndex;
+                int meshIndex = definitionField.textInfo.characterInfo[characterIndex].materialReferenceIndex;
 
                 // Get the index of the first vertex of this character.
-                int vertexIndex = textMeshField.textInfo.characterInfo[characterIndex].vertexIndex;
+                int vertexIndex = definitionField.textInfo.characterInfo[characterIndex].vertexIndex;
 
                 // Get a reference to the vertex color
-                Color32[] vertexColors = textMeshField.textInfo.meshInfo[meshIndex].colors32;
+                Color32[] vertexColors = definitionField.textInfo.meshInfo[meshIndex].colors32;
 
                 Color32 c = vertexColors[vertexIndex + 0].Tint(1.33333f);
 
@@ -73,7 +80,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             }
 
             // Update Geometry
-            textMeshField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+            definitionField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 
             selectedWordIndex = -1;
             SelectedDefinitionWord = "";
@@ -93,44 +100,56 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
                 wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
             }
 
-            // check if the word is not the first one to highlight only the definition
-            if (wordIndex > 0)
+
+            // Word Selection Handling
+            if (wordIndex != -1 && wordIndex != selectedWordIndex && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
             {
-                // Word Selection Handling
-                if (wordIndex != -1 && wordIndex != selectedWordIndex && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+                selectedWordIndex = wordIndex;
+
+                TMP_WordInfo wInfo = definitionField.textInfo.wordInfo[wordIndex];
+
+                // Iterate through each of the characters of the word.
+                for (int i = 0; i < wInfo.characterCount; i++)
                 {
-                    selectedWordIndex = wordIndex;
+                    int characterIndex = wInfo.firstCharacterIndex + i;
 
-                    TMP_WordInfo wInfo = textMeshField.textInfo.wordInfo[wordIndex];
+                    // Get the index of the material / sub text object used by this character.
+                    int meshIndex = definitionField.textInfo.characterInfo[characterIndex].materialReferenceIndex;
 
-                    // Iterate through each of the characters of the word.
-                    for (int i = 0; i < wInfo.characterCount; i++)
-                    {
-                        int characterIndex = wInfo.firstCharacterIndex + i;
+                    int vertexIndex = definitionField.textInfo.characterInfo[characterIndex].vertexIndex;
 
-                        // Get the index of the material / sub text object used by this character.
-                        int meshIndex = textMeshField.textInfo.characterInfo[characterIndex].materialReferenceIndex;
+                    // Get a reference to the vertex color
+                    Color32[] vertexColors = definitionField.textInfo.meshInfo[meshIndex].colors32;
 
-                        int vertexIndex = textMeshField.textInfo.characterInfo[characterIndex].vertexIndex;
+                    Color32 c = vertexColors[vertexIndex + 0].Tint(0.75f);
 
-                        // Get a reference to the vertex color
-                        Color32[] vertexColors = textMeshField.textInfo.meshInfo[meshIndex].colors32;
-
-                        Color32 c = vertexColors[vertexIndex + 0].Tint(0.75f);
-
-                        vertexColors[vertexIndex + 0] = c;
-                        vertexColors[vertexIndex + 1] = c;
-                        vertexColors[vertexIndex + 2] = c;
-                        vertexColors[vertexIndex + 3] = c;
-                    }
-
-                    // Update Geometry
-                    textMeshField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
-
-                    SelectedDefinitionWord = wInfo.GetWord();
-                    Dictionary.Instance.WordPopUp.SetActive(true);
+                    vertexColors[vertexIndex + 0] = c;
+                    vertexColors[vertexIndex + 1] = c;
+                    vertexColors[vertexIndex + 2] = c;
+                    vertexColors[vertexIndex + 3] = c;
                 }
+
+                // Update Geometry
+                definitionField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+
+                SelectedDefinitionWord = wInfo.GetWord();
+                Dictionary.Instance.WordPopUp.SetActive(true);
             }
+        }
+    }
+
+    /// <summary>
+    /// if toggle is on, enable the image background
+    /// </summary>
+    public void ToggleImage()
+    {
+        if (toggleButton.isOn)
+        {
+            Image.enabled = true;
+        }
+        else
+        {
+            Image.enabled = false;
         }
     }
 
@@ -139,7 +158,9 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     /// </summary>
     public void UpdateText()
     {
-        textMeshField.text = Word + " = " + Definition;
+        //textMeshField.text = Word + " = " + Definition;
+        wordField.text = Word;
+        definitionField.text = "= " + Definition;
     }
 
     /// <summary>
@@ -151,6 +172,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         if (toggleButton.isOn)
         {
+            Image.enabled = true;
             MouseOvertext = true;
             Dictionary.Instance.EditWordPanel.SetActive(false);
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
@@ -161,6 +183,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
         else
         {
+            Image.enabled = false;
             MouseOvertext = false;
             Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
         }
@@ -170,7 +193,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             Dictionary.Instance.ActiveSelectedWord();
         }
 
-        if(Dictionary.Instance.SelectedWord == SelectedDefinitionWord && Dictionary.Instance.AddToDictionary)
+        if (Dictionary.Instance.SelectedWord == SelectedDefinitionWord && Dictionary.Instance.AddToDictionary)
         {
             Dictionary.Instance.AddWordPanel.SetActive(true);
         }
