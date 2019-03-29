@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
@@ -94,7 +92,18 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             if (toggleButton.isOn)
             {
                 Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-                popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+                if (Input.mousePosition.x <= 210f)
+                {
+                    popUpCachedTransform.anchoredPosition = new Vector3(210, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+                }
+                else if (Input.mousePosition.x >= 1710f)
+                {
+                    popUpCachedTransform.anchoredPosition = new Vector3(1710, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+                }
+                else
+                {
+                    popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+                }
                 wordPopUpCachedTransform.anchoredPosition = Input.mousePosition;
                 popUpCachedScript.EditWordInput = wordDefinitionCache;
                 wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
@@ -161,7 +170,18 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             MouseOvertext = true;
             Dictionary.Instance.EditWordPanel.SetActive(false);
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            if (Input.mousePosition.x <= 210f)
+            {
+                popUpCachedTransform.anchoredPosition = new Vector3(210, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            }
+            else if (Input.mousePosition.x >= 1710f)
+            {
+                popUpCachedTransform.anchoredPosition = new Vector3(1710, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            }
+            else
+            {
+                popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            }
             wordPopUpCachedTransform.anchoredPosition = Input.mousePosition;
             popUpCachedScript.EditWordInput = wordDefinitionCache;
             wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
@@ -190,7 +210,18 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             MouseOvertext = true;
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            if (Input.mousePosition.x <= 210f)
+            {
+                popUpCachedTransform.anchoredPosition = new Vector3(210, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            }
+            else if (Input.mousePosition.x >= 1710f)
+            {
+                popUpCachedTransform.anchoredPosition = new Vector3(1710, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            }
+            else
+            {
+                popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            }
             wordPopUpCachedTransform.anchoredPosition = Input.mousePosition;
             popUpCachedScript.EditWordInput = wordDefinitionCache;
             wordPopUpCachedScript.EditWordInput = wordDefinitionCache;

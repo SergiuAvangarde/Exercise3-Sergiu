@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class AddWords : MonoBehaviour
@@ -34,7 +32,6 @@ public class AddWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-
             Dictionary.Instance.SelectedWord = wordInput.text.ToLower();
             if (Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.SelectedWord))
             {
@@ -43,7 +40,6 @@ public class AddWords : MonoBehaviour
                 gameObject.SetActive(false);
             }
             else
-
             {
                 Dictionary.Instance.Words.Add(Dictionary.Instance.SelectedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
