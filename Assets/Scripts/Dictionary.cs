@@ -11,8 +11,12 @@ public class Dictionary : MonoBehaviour
     public SortedDictionary<string, string> Words = new SortedDictionary<string, string>();
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
     public GameObject EditOrRemovePopUp;
+    public GameObject WordPopUp;
+    public GameObject AddWordPanel;
     public GameObject EditWordPanel;
-    public string AddedWord { get; set; }
+    public string SelectedWord { get; set; }
+    public bool IsInDictionary { get; set; }
+    public bool AddToDictionary { get; set; }
 
     [SerializeField]
     private GameObject wordPrefab;
@@ -29,7 +33,7 @@ public class Dictionary : MonoBehaviour
     private ToggleGroup toggleGroupCache;
     private WordClassList wordsClassListObj = new WordClassList();
     private string jsonPath;
-    private float addedWordPosition;
+    private float selectedWordPosition;
     private int wordPoolLength = 0;
 
     /// <summary>
@@ -120,7 +124,7 @@ public class Dictionary : MonoBehaviour
                     WordObjScript.Word = word.Key;
                     WordObjScript.Definition = word.Value;
                     WordObjScript.UpdateText();
-                    if (AddedWord == word.Key)
+                    if (SelectedWord == word.Key)
                     {
                         wordObj.GetComponent<Toggle>().isOn = true;
                     }
@@ -164,6 +168,18 @@ public class Dictionary : MonoBehaviour
         }
     }
 
+    public void ActiveSelectedWord()
+    {
+        foreach (var word in WordsPool)
+        {
+            if (word.GetComponent<WordDefinition>().Word == SelectedWord)
+            {
+                word.GetComponent<Toggle>().isOn = true;
+                UpdateLayout();
+            }
+        }
+    }
+
     /// <summary>
     /// Move the scroll position to the selected word position
     /// </summary>
@@ -172,14 +188,16 @@ public class Dictionary : MonoBehaviour
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(transformCache);
         Canvas.ForceUpdateCanvases();
-        addedWordPosition = 0;
+
+        selectedWordPosition = 0;
+
 
         foreach (var toggle in toggleGroupCache.ActiveToggles())
         {
-            addedWordPosition = Mathf.Abs(toggle.transform.localPosition.y);
+            selectedWordPosition = Mathf.Abs(toggle.transform.localPosition.y);
         }
 
-        float normalizedPosition = addedWordPosition / transformCache.rect.height;
+        float normalizedPosition = selectedWordPosition / transformCache.rect.height;
         scroll.verticalNormalizedPosition = 1 - normalizedPosition;
     }
 }

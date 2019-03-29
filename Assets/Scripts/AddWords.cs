@@ -20,6 +20,10 @@ public class AddWords : MonoBehaviour
         {
             wordInput.text = searchInput.SearchField.text;
         }
+        if (!string.IsNullOrEmpty(Dictionary.Instance.SelectedWord))
+        {
+            wordInput.text = Dictionary.Instance.SelectedWord;
+        }
     }
 
     /// <summary>
@@ -30,10 +34,18 @@ public class AddWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-            Dictionary.Instance.AddedWord = wordInput.text;
-            if (!Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.AddedWord))
+
+            Dictionary.Instance.SelectedWord = wordInput.text;
+            if (Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.SelectedWord))
             {
-                Dictionary.Instance.Words.Add(Dictionary.Instance.AddedWord, descriptionInput.text);
+                warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
+                Dictionary.Instance.ActiveSelectedWord();
+                gameObject.SetActive(false);
+            }
+            else
+
+            {
+                Dictionary.Instance.Words.Add(Dictionary.Instance.SelectedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
                 Dictionary.Instance.RefreshWords();
                 wordInput.text = "";
@@ -41,6 +53,7 @@ public class AddWords : MonoBehaviour
                 searchInput.SearchField.text = "";
                 gameObject.SetActive(false);
             }
+
             else
             {
                 warningText.text = "This word is already in the dictionary, you can edit or remove it here.";

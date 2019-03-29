@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class EditWords : MonoBehaviour
+public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public WordDefinition EditWordInput { get; set; }
 
     [SerializeField]
-    private InputField wordInput;
+    private InputField wordInput = null;
     [SerializeField]
-    private InputField descriptionInput;
+    private InputField descriptionInput = null;
     [SerializeField]
-    private Text warningText;
+    private Text warningText = null;
 
     /// <summary>
     /// change a words descriprion with the one from the input field
@@ -24,18 +25,16 @@ public class EditWords : MonoBehaviour
         {
             if (wordInput.text == EditWordInput.Word)
             {
-                Dictionary.Instance.AddedWord = wordInput.text;
+                Dictionary.Instance.SelectedWord = wordInput.text;
                 Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
                 Dictionary.Instance.RefreshWords();
-                gameObject.SetActive(false);
             }
             else
             {
-                Dictionary.Instance.AddedWord = wordInput.text;
+                Dictionary.Instance.SelectedWord = wordInput.text;
                 Dictionary.Instance.Words.Remove(EditWordInput.Word);
                 Dictionary.Instance.Words.Add(wordInput.text, descriptionInput.text);
                 Dictionary.Instance.RefreshWords();
-                gameObject.SetActive(false);
             }
         }
         else
@@ -61,5 +60,15 @@ public class EditWords : MonoBehaviour
     {
         Dictionary.Instance.Words.Remove(EditWordInput.Word);
         Dictionary.Instance.RefreshWords();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        EditWordInput.MouseOvertext = false;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        gameObject.SetActive(false);
     }
 }
