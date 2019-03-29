@@ -139,21 +139,6 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     }
 
     /// <summary>
-    /// if toggle is on, enable the image background
-    /// </summary>
-    public void ToggleImage()
-    {
-        if (toggleButton.isOn)
-        {
-            Image.enabled = true;
-        }
-        else
-        {
-            Image.enabled = false;
-        }
-    }
-
-    /// <summary>
     /// shows this word with it's definition to the UI
     /// </summary>
     public void UpdateText()
