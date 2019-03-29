@@ -20,6 +20,10 @@ public class AddWords : MonoBehaviour
         {
             wordInput.text = searchInput.SearchField.text;
         }
+        if (!string.IsNullOrEmpty(Dictionary.Instance.SelectedWord))
+        {
+            wordInput.text = Dictionary.Instance.SelectedWord;
+        }
     }
 
     /// <summary>
@@ -31,8 +35,13 @@ public class AddWords : MonoBehaviour
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
             Dictionary.Instance.SelectedWord = wordInput.text;
-            string definition;
-            if (!Dictionary.Instance.Words.TryGetValue(Dictionary.Instance.SelectedWord, out definition))
+            if (Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.SelectedWord))
+            {
+                warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
+                Dictionary.Instance.ActiveSelectedWord();
+                gameObject.SetActive(false);
+            }
+            else
             {
                 Dictionary.Instance.Words.Add(Dictionary.Instance.SelectedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
@@ -40,19 +49,6 @@ public class AddWords : MonoBehaviour
                 wordInput.text = "";
                 descriptionInput.text = "";
                 searchInput.SearchField.text = "";
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
-                foreach (var word in Dictionary.Instance.WordsPool)
-                {
-                    if(word.GetComponent<WordDefinition>().Word == Dictionary.Instance.SelectedWord)
-                    {
-                        word.GetComponent<Toggle>().isOn = true;
-                        StartCoroutine(Dictionary.Instance.WaitToUpdate());
-                    }
-                }
                 gameObject.SetActive(false);
             }
         }

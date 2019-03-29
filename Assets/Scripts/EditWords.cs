@@ -9,45 +9,11 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public WordDefinition EditWordInput { get; set; }
 
     [SerializeField]
-    private InputField wordInput;
+    private InputField wordInput = null;
     [SerializeField]
-    private InputField descriptionInput;
+    private InputField descriptionInput = null;
     [SerializeField]
-    private Text warningText;
-
-    [SerializeField]
-    private GameObject wordText;
-    [SerializeField]
-    private GameObject wordInDictionary;
-    [SerializeField]
-    private GameObject addWordDictionary;
-
-    private void FixedUpdate()
-    {
-        if (string.IsNullOrEmpty(EditWordInput.SelectedDefinitionWord))
-        {
-            wordText.SetActive(true);
-            wordInDictionary.SetActive(false);
-            addWordDictionary.SetActive(false);
-        }
-        else
-        {
-            string definition;
-            if (Dictionary.Instance.Words.TryGetValue(EditWordInput.SelectedDefinitionWord, out definition))
-            {
-                wordText.SetActive(false);
-                wordInDictionary.SetActive(true);
-                Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
-                addWordDictionary.SetActive(false);
-            }
-            else
-            {
-                wordText.SetActive(false);
-                wordInDictionary.SetActive(false);
-                addWordDictionary.SetActive(true);
-            }
-        }
-    }
+    private Text warningText = null;
 
     /// <summary>
     /// change a words descriprion with the one from the input field
@@ -62,7 +28,6 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 Dictionary.Instance.SelectedWord = wordInput.text;
                 Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
                 Dictionary.Instance.RefreshWords();
-                gameObject.SetActive(false);
             }
             else
             {
@@ -70,26 +35,12 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 Dictionary.Instance.Words.Remove(EditWordInput.Word);
                 Dictionary.Instance.Words.Add(wordInput.text, descriptionInput.text);
                 Dictionary.Instance.RefreshWords();
-                gameObject.SetActive(false);
             }
         }
         else
         {
             warningText.text = "You need to write a description for this to work!";
         }
-    }
-
-    public void GoToWord()
-    {
-        foreach (var word in Dictionary.Instance.WordsPool)
-        {
-            if (word.GetComponent<WordDefinition>().Word == Dictionary.Instance.SelectedWord)
-            {
-                word.GetComponent<Toggle>().isOn = true;
-                StartCoroutine(Dictionary.Instance.WaitToUpdate());
-            }
-        }
-        gameObject.SetActive(false);
     }
 
     /// <summary>

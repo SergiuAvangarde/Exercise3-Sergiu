@@ -17,8 +17,10 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private TextMeshProUGUI textMeshField;
     private Toggle toggleButton;
     private RectTransform popUpCachedTransform;
-    private RectTransform WordCachedTransform;
+    private RectTransform wordPopUpCachedTransform;
+    private RectTransform definitionCachedTransform;
     private EditWords popUpCachedScript;
+    private SelectWord wordPopUpCachedScript;
     private WordDefinition wordDefinitionCache;
     private int m_selectedWord = -1;
 
@@ -28,9 +30,11 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         textMeshField = GetComponent<TextMeshProUGUI>();
 
         toggleButton = GetComponent<Toggle>();
-        WordCachedTransform = gameObject.GetComponent<RectTransform>();
+        definitionCachedTransform = gameObject.GetComponent<RectTransform>();
         popUpCachedTransform = Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
+        wordPopUpCachedTransform = Dictionary.Instance.WordPopUp.GetComponent<RectTransform>();
         popUpCachedScript = Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>();
+        wordPopUpCachedScript = Dictionary.Instance.WordPopUp.GetComponent<SelectWord>();
         wordDefinitionCache = GetComponent<WordDefinition>();
     }
 
@@ -69,6 +73,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             textMeshField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 
             m_selectedWord = -1;
+            Dictionary.Instance.WordPopUp.SetActive(false);
         }
 
         if (MouseOvertext)
@@ -76,8 +81,10 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             if (toggleButton.isOn)
             {
                 Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-                popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, WordCachedTransform.position.y + WordCachedTransform.rect.height / 2, Input.mousePosition.z);
+                popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+                wordPopUpCachedTransform.anchoredPosition = Input.mousePosition;
                 popUpCachedScript.EditWordInput = wordDefinitionCache;
+                wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
             }
 
             if (wordIndex > 0)
@@ -115,6 +122,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
                     //Debug.Log("word at index: " + wordIndex + " is " + wInfo.GetWord());
                     SelectedDefinitionWord = wInfo.GetWord();
+                    Dictionary.Instance.WordPopUp.SetActive(true);
                 }
             }
         }
@@ -140,13 +148,25 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             MouseOvertext = true;
             Dictionary.Instance.EditWordPanel.SetActive(false);
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, WordCachedTransform.position.y + WordCachedTransform.rect.height / 2, Input.mousePosition.z);
+            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            wordPopUpCachedTransform.anchoredPosition = Input.mousePosition;
             popUpCachedScript.EditWordInput = wordDefinitionCache;
+            wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
         }
         else
         {
             MouseOvertext = false;
             Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
+        }
+
+        if (Dictionary.Instance.SelectedWord == SelectedDefinitionWord && Dictionary.Instance.IsInDictionary)
+        {
+            Dictionary.Instance.ActiveSelectedWord();
+        }
+
+        if(Dictionary.Instance.SelectedWord == SelectedDefinitionWord && Dictionary.Instance.AddToDictionary)
+        {
+            Dictionary.Instance.AddWordPanel.SetActive(true);
         }
     }
 
@@ -156,8 +176,10 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             MouseOvertext = true;
             Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
-            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, WordCachedTransform.position.y + WordCachedTransform.rect.height / 2, Input.mousePosition.z);
+            popUpCachedTransform.anchoredPosition = new Vector3(Input.mousePosition.x, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
+            wordPopUpCachedTransform.anchoredPosition = Input.mousePosition;
             popUpCachedScript.EditWordInput = wordDefinitionCache;
+            wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
         }
         else
         {

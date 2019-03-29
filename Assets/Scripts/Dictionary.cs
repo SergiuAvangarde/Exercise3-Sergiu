@@ -11,8 +11,12 @@ public class Dictionary : MonoBehaviour
     public SortedDictionary<string, string> Words = new SortedDictionary<string, string>();
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
     public GameObject EditOrRemovePopUp;
+    public GameObject WordPopUp;
+    public GameObject AddWordPanel;
     public GameObject EditWordPanel;
     public string SelectedWord { get; set; }
+    public bool IsInDictionary { get; set; }
+    public bool AddToDictionary { get; set; }
 
     [SerializeField]
     private GameObject wordPrefab;
@@ -133,7 +137,7 @@ public class Dictionary : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(WaitToUpdate());
+        UpdateLayout();
         SaveData();
     }
 
@@ -164,19 +168,31 @@ public class Dictionary : MonoBehaviour
         }
     }
 
+    public void ActiveSelectedWord()
+    {
+        foreach (var word in WordsPool)
+        {
+            if (word.GetComponent<WordDefinition>().Word == SelectedWord)
+            {
+                word.GetComponent<Toggle>().isOn = true;
+                UpdateLayout();
+            }
+        }
+    }
+
     /// <summary>
     /// Move the scroll position to the selected word position
     /// </summary>
     /// <returns>wait for the list with words to be updated</returns>
-    public IEnumerator WaitToUpdate()
+    public void UpdateLayout()
     {
-        yield return new WaitForSeconds(0.2f);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(transformCache);
+        Canvas.ForceUpdateCanvases();
         selectedWordPosition = 0;
 
         foreach (var toggle in toggleGroupCache.ActiveToggles())
         {
             selectedWordPosition = Mathf.Abs(toggle.transform.localPosition.y);
-            Debug.Log(selectedWordPosition);
         }
 
         float normalizedPosition = selectedWordPosition / transformCache.rect.height;

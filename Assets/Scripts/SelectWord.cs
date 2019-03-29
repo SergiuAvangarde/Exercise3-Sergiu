@@ -7,10 +7,30 @@ using TMPro;
 
 public class SelectWord : MonoBehaviour
 {
-    public TextMeshProUGUI WordText;
+    public WordDefinition EditWordInput { get; set; }
 
-    private void LateUpdate()
+    [SerializeField]
+    private GameObject wordInDictionary = null;
+    [SerializeField]
+    private GameObject addWordDictionary = null;
+
+    private void FixedUpdate()
     {
-        //int wordIndex = TMP_TextUtilities.FindIntersectingWord
+        if (Dictionary.Instance.Words.ContainsKey(EditWordInput.SelectedDefinitionWord))
+        {
+            wordInDictionary.SetActive(true);
+            addWordDictionary.SetActive(false);
+            Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
+            Dictionary.Instance.IsInDictionary = true;
+            Dictionary.Instance.AddToDictionary = false;
+        }
+        else
+        {
+            wordInDictionary.SetActive(false);
+            addWordDictionary.SetActive(true);
+            Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
+            Dictionary.Instance.IsInDictionary = false;
+            Dictionary.Instance.AddToDictionary = true;
+        }
     }
 }
