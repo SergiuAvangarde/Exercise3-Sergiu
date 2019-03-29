@@ -1134,7 +1134,7 @@ RectTransform:
   - {fileID: 1138873778}
   - {fileID: 62708894}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1210,85 +1210,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!1 &410182080
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 410182081}
-  - component: {fileID: 410182083}
-  - component: {fileID: 410182082}
-  m_Layer: 5
-  m_Name: AddWordToDictionary
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &410182081
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410182080}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 715441803}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &410182082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410182080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: Click to add this word to dictionary.
---- !u!222 &410182083
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410182080}
-  m_CullTransparentMesh: 0
 --- !u!1 &417557208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,13 +1245,13 @@ RectTransform:
   - {fileID: 4273304}
   - {fileID: 1737359175}
   - {fileID: 297814621}
-  m_Father: {fileID: 1740747411}
-  m_RootOrder: 1
+  m_Father: {fileID: 495167435}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -800, y: -450}
-  m_SizeDelta: {x: 770, y: 380}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -1000, y: -600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &417557210
 MonoBehaviour:
@@ -1478,12 +1399,13 @@ RectTransform:
   - {fileID: 191045207}
   - {fileID: 258110246}
   - {fileID: 950352692}
+  - {fileID: 1740747411}
   - {fileID: 1390873722}
   - {fileID: 1279211816}
   - {fileID: 363593145}
-  - {fileID: 1740747411}
-  - {fileID: 715441803}
   - {fileID: 2697977731892983918}
+  - {fileID: 715441803}
+  - {fileID: 417557209}
   - {fileID: 1731314748}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1908,7 +1830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000034176585, y: 0.000038743427}
+  m_AnchoredPosition: {x: -0.0000034176585, y: 0.000016859116}
   m_SizeDelta: {x: -1703, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &693667599
@@ -1992,9 +1914,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 184625518}
-  - {fileID: 410182081}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2013,8 +1934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2c4f69ad2c9d040be6b12f693ceeb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wordInDictionary: {fileID: 184625517}
-  addWordDictionary: {fileID: 410182080}
+  wordInDictionary: {fileID: 184625519}
 --- !u!114 &715441805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2818,7 +2738,7 @@ RectTransform:
   m_Children:
   - {fileID: 1250072755}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3268,7 +3188,7 @@ RectTransform:
   m_Children:
   - {fileID: 1311640833}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4054,7 +3974,7 @@ RectTransform:
   - {fileID: 916496443}
   - {fileID: 618666132}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4269,9 +4189,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1540147796}
-  - {fileID: 417557209}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5230,7 +5149,7 @@ RectTransform:
   - {fileID: 2697977731767290003}
   - {fileID: 2697977730330149046}
   m_Father: {fileID: 495167435}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

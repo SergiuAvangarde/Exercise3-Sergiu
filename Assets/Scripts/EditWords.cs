@@ -23,15 +23,15 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         warningText.text = "";
         if (!string.IsNullOrEmpty(descriptionInput.text))
         {
-            if (wordInput.text == EditWordInput.Word)
+            if (wordInput.text.ToLower() == EditWordInput.Word.ToLower())
             {
-                Dictionary.Instance.SelectedWord = wordInput.text;
+                Dictionary.Instance.SelectedWord = wordInput.text.ToLower();
                 Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
                 Dictionary.Instance.RefreshWords();
             }
             else
             {
-                Dictionary.Instance.SelectedWord = wordInput.text;
+                Dictionary.Instance.SelectedWord = wordInput.text.ToLower();
                 Dictionary.Instance.Words.Remove(EditWordInput.Word);
                 Dictionary.Instance.Words.Add(wordInput.text, descriptionInput.text);
                 Dictionary.Instance.RefreshWords();

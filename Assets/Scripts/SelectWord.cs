@@ -10,27 +10,38 @@ public class SelectWord : MonoBehaviour
     public WordDefinition EditWordInput { get; set; }
 
     [SerializeField]
-    private GameObject wordInDictionary = null;
-    [SerializeField]
-    private GameObject addWordDictionary = null;
+    private Text wordInDictionary = null;
 
+    /// <summary>
+    /// check if highlighted word is in dictionary and show the coresponding message to popup
+    /// set the bool in Dictionary script to know what action is needed on click
+    /// </summary>
     private void FixedUpdate()
     {
         if (Dictionary.Instance.Words.ContainsKey(EditWordInput.SelectedDefinitionWord))
         {
-            wordInDictionary.SetActive(true);
-            addWordDictionary.SetActive(false);
+            wordInDictionary.text = "This word is in the dictionary, Click to go to word";
             Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
             Dictionary.Instance.IsInDictionary = true;
             Dictionary.Instance.AddToDictionary = false;
         }
         else
         {
-            wordInDictionary.SetActive(false);
-            addWordDictionary.SetActive(true);
+            wordInDictionary.text = "Click to add this word to dictionary.";
             Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
             Dictionary.Instance.IsInDictionary = false;
             Dictionary.Instance.AddToDictionary = true;
         }
+    }
+
+    /// <summary>
+    /// reset the variables
+    /// </summary>
+    private void OnDisable()
+    {
+        wordInDictionary.text = "";
+        Dictionary.Instance.SelectedWord = "";
+        Dictionary.Instance.IsInDictionary = false;
+        Dictionary.Instance.AddToDictionary = false;
     }
 }

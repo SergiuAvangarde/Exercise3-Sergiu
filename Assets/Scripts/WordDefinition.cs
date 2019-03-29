@@ -9,11 +9,9 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
 {
     public string Word;
     public string Definition;
-
     public string SelectedDefinitionWord;
     public bool MouseOvertext = false;
 
-    //private Text textField;
     private TextMeshProUGUI textMeshField;
     private Toggle toggleButton;
     private RectTransform popUpCachedTransform;
@@ -22,13 +20,14 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private EditWords popUpCachedScript;
     private SelectWord wordPopUpCachedScript;
     private WordDefinition wordDefinitionCache;
-    private int m_selectedWord = -1;
+    private int selectedWordIndex = -1;
 
+    /// <summary>
+    /// initialize the required components
+    /// </summary>
     private void Awake()
     {
-        //textField = GetComponent<Text>();
         textMeshField = GetComponent<TextMeshProUGUI>();
-
         toggleButton = GetComponent<Toggle>();
         definitionCachedTransform = gameObject.GetComponent<RectTransform>();
         popUpCachedTransform = Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
@@ -38,14 +37,18 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         wordDefinitionCache = GetComponent<WordDefinition>();
     }
 
+    /// <summary>
+    /// check if the mouse pointer is over a word from an active toggle
+    /// if yes, the word is highlighted, saved into a variable and a pop-up activates below
+    /// </summary>
     private void FixedUpdate()
     {
         int wordIndex = TMP_TextUtilities.FindIntersectingWord(textMeshField, Input.mousePosition, null);
 
         // Clear previous word selection.
-        if (m_selectedWord != -1 && (wordIndex == -1 || wordIndex != m_selectedWord))
+        if (selectedWordIndex != -1 && (wordIndex == -1 || wordIndex != selectedWordIndex))
         {
-            TMP_WordInfo wInfo = textMeshField.textInfo.wordInfo[m_selectedWord];
+            TMP_WordInfo wInfo = textMeshField.textInfo.wordInfo[selectedWordIndex];
 
             // Iterate through each of the characters of the word.
             for (int i = 0; i < wInfo.characterCount; i++)
@@ -72,12 +75,15 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             // Update Geometry
             textMeshField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 
-            m_selectedWord = -1;
+            selectedWordIndex = -1;
+            SelectedDefinitionWord = "";
             Dictionary.Instance.WordPopUp.SetActive(false);
         }
 
+        // if the mouse hovers over a word
         if (MouseOvertext)
         {
+            // if the toggle of the word is active
             if (toggleButton.isOn)
             {
                 Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
@@ -87,12 +93,13 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
                 wordPopUpCachedScript.EditWordInput = wordDefinitionCache;
             }
 
+            // check if the word is not the first one to highlight only the definition
             if (wordIndex > 0)
             {
                 // Word Selection Handling
-                if (wordIndex != -1 && wordIndex != m_selectedWord && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+                if (wordIndex != -1 && wordIndex != selectedWordIndex && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
                 {
-                    m_selectedWord = wordIndex;
+                    selectedWordIndex = wordIndex;
 
                     TMP_WordInfo wInfo = textMeshField.textInfo.wordInfo[wordIndex];
 
@@ -120,7 +127,6 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
                     // Update Geometry
                     textMeshField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 
-                    //Debug.Log("word at index: " + wordIndex + " is " + wInfo.GetWord());
                     SelectedDefinitionWord = wInfo.GetWord();
                     Dictionary.Instance.WordPopUp.SetActive(true);
                 }
@@ -133,13 +139,13 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
     /// </summary>
     public void UpdateText()
     {
-        //textField.text = Word + " = " + Definition;
         textMeshField.text = Word + " = " + Definition;
     }
 
     /// <summary>
     /// these two functions make the same thing, I used them both because only using one of them did not work in some cases
     /// if the toggle button is on the position for the PopUp with the Edit or Remove buttons changes acording to mouse position
+    /// if you click a highlighted word it searches for it in the dictionary and if it's now found you can add it
     /// </summary>
     public void OnPointerClick(PointerEventData eventData)
     {

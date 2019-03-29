@@ -8,15 +8,17 @@ using System.IO;
 public class Dictionary : MonoBehaviour
 {
     public static Dictionary Instance = null;
+
     public SortedDictionary<string, string> Words = new SortedDictionary<string, string>();
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
+    public string SelectedWord { get; set; }
+    public bool IsInDictionary { get; set; }
+    public bool AddToDictionary { get; set; }
     public GameObject EditOrRemovePopUp;
     public GameObject WordPopUp;
     public GameObject AddWordPanel;
     public GameObject EditWordPanel;
-    public string SelectedWord { get; set; }
-    public bool IsInDictionary { get; set; }
-    public bool AddToDictionary { get; set; }
+
 
     [SerializeField]
     private GameObject wordPrefab;
@@ -121,7 +123,7 @@ public class Dictionary : MonoBehaviour
                 {
                     wordObj.SetActive(true);
                     var WordObjScript = wordObj.GetComponent<WordDefinition>();
-                    WordObjScript.Word = word.Key;
+                    WordObjScript.Word = word.Key.ToLower();
                     WordObjScript.Definition = word.Value;
                     WordObjScript.UpdateText();
                     if (SelectedWord == word.Key)
@@ -130,7 +132,7 @@ public class Dictionary : MonoBehaviour
                     }
 
                     var wordClassObj = new WordClass();
-                    wordClassObj.Word = word.Key;
+                    wordClassObj.Word = word.Key.ToLower();
                     wordClassObj.Definition = word.Value;
                     wordsClassListObj.WordsClass.Add(wordClassObj);
                     break;
@@ -168,6 +170,9 @@ public class Dictionary : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// make the toggle of a selected word on, and call funtion to move scroll position
+    /// </summary>
     public void ActiveSelectedWord()
     {
         foreach (var word in WordsPool)
@@ -181,9 +186,9 @@ public class Dictionary : MonoBehaviour
     }
 
     /// <summary>
-    /// Move the scroll position to the selected word position
+    /// wait for Canvas to update, and
+    /// move the scroll position to the selected word position
     /// </summary>
-    /// <returns>wait for the list with words to be updated</returns>
     public void UpdateLayout()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(transformCache);
