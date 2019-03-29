@@ -142,6 +142,35 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
                 definitionField.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
 
                 SelectedDefinitionWord = wInfo.GetWord();
+                var temporaryWord = wInfo.GetWord();
+                bool before = false;
+                bool after = false;
+
+                if (Dictionary.Instance.Words.ContainsKey(temporaryWord))
+                {
+                    before = true;
+                }
+
+                var array = temporaryWord.ToLower().ToCharArray();
+                var LastChar = temporaryWord.ToCharArray().Length - 1;
+
+                if (array[LastChar] == 's')
+                {
+                    temporaryWord = "";
+                    for (int i = 0; i < LastChar; i++)
+                    {
+                        temporaryWord += array[i];
+                    }
+                    if (Dictionary.Instance.Words.ContainsKey(temporaryWord))
+                    {
+                        after = true;
+                    }
+                }
+                if (!before && after)
+                {
+                    SelectedDefinitionWord = temporaryWord;
+                }
+
                 Dictionary.Instance.WordPopUp.SetActive(true);
             }
         }
