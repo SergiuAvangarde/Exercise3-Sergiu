@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class SelectWord : MonoBehaviour, IPointerClickHandler
+public class SelectWord : MonoBehaviour
 {
     public TextMeshProUGUI WordText;
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void LateUpdate()
     {
-        
+        //int wordIndex = TMP_TextUtilities.FindIntersectingWord
     }
 }

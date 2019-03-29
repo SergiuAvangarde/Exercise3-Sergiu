@@ -12,7 +12,7 @@ public class Dictionary : MonoBehaviour
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();
     public GameObject EditOrRemovePopUp;
     public GameObject EditWordPanel;
-    public string AddedWord { get; set; }
+    public string SelectedWord { get; set; }
 
     [SerializeField]
     private GameObject wordPrefab;
@@ -29,7 +29,7 @@ public class Dictionary : MonoBehaviour
     private ToggleGroup toggleGroupCache;
     private WordClassList wordsClassListObj = new WordClassList();
     private string jsonPath;
-    private float addedWordPosition;
+    private float selectedWordPosition;
     private int wordPoolLength = 0;
 
     /// <summary>
@@ -120,7 +120,7 @@ public class Dictionary : MonoBehaviour
                     WordObjScript.Word = word.Key;
                     WordObjScript.Definition = word.Value;
                     WordObjScript.UpdateText();
-                    if (AddedWord == word.Key)
+                    if (SelectedWord == word.Key)
                     {
                         wordObj.GetComponent<Toggle>().isOn = true;
                     }
@@ -170,15 +170,16 @@ public class Dictionary : MonoBehaviour
     /// <returns>wait for the list with words to be updated</returns>
     public IEnumerator WaitToUpdate()
     {
-        yield return new WaitForSeconds(0.1f);
-        addedWordPosition = 0;
+        yield return new WaitForSeconds(0.2f);
+        selectedWordPosition = 0;
 
         foreach (var toggle in toggleGroupCache.ActiveToggles())
         {
-            addedWordPosition = Mathf.Abs(toggle.transform.localPosition.y);
+            selectedWordPosition = Mathf.Abs(toggle.transform.localPosition.y);
+            Debug.Log(selectedWordPosition);
         }
 
-        float normalizedPosition = addedWordPosition / transformCache.rect.height;
+        float normalizedPosition = selectedWordPosition / transformCache.rect.height;
         scroll.verticalNormalizedPosition = 1 - normalizedPosition;
     }
 }

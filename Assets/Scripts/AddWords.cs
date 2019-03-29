@@ -30,11 +30,11 @@ public class AddWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-            Dictionary.Instance.AddedWord = wordInput.text;
+            Dictionary.Instance.SelectedWord = wordInput.text;
             string definition;
-            if (!Dictionary.Instance.Words.TryGetValue(Dictionary.Instance.AddedWord, out definition))
+            if (!Dictionary.Instance.Words.TryGetValue(Dictionary.Instance.SelectedWord, out definition))
             {
-                Dictionary.Instance.Words.Add(Dictionary.Instance.AddedWord, descriptionInput.text);
+                Dictionary.Instance.Words.Add(Dictionary.Instance.SelectedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
                 Dictionary.Instance.RefreshWords();
                 wordInput.text = "";
@@ -47,7 +47,7 @@ public class AddWords : MonoBehaviour
                 warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
                 foreach (var word in Dictionary.Instance.WordsPool)
                 {
-                    if(word.GetComponent<WordDefinition>().Word == Dictionary.Instance.AddedWord)
+                    if(word.GetComponent<WordDefinition>().Word == Dictionary.Instance.SelectedWord)
                     {
                         word.GetComponent<Toggle>().isOn = true;
                         StartCoroutine(Dictionary.Instance.WaitToUpdate());
