@@ -34,6 +34,7 @@ public class AddWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
+
             Dictionary.Instance.SelectedWord = wordInput.text;
             if (Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.SelectedWord))
             {
@@ -42,6 +43,7 @@ public class AddWords : MonoBehaviour
                 gameObject.SetActive(false);
             }
             else
+
             {
                 Dictionary.Instance.Words.Add(Dictionary.Instance.SelectedWord, descriptionInput.text);
                 Dictionary.Instance.InstantiateWordObj();
@@ -49,6 +51,20 @@ public class AddWords : MonoBehaviour
                 wordInput.text = "";
                 descriptionInput.text = "";
                 searchInput.SearchField.text = "";
+                gameObject.SetActive(false);
+            }
+
+            else
+            {
+                warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
+                foreach (var word in Dictionary.Instance.WordsPool)
+                {
+                    if(word.GetComponent<WordDefinition>().Word == Dictionary.Instance.AddedWord)
+                    {
+                        word.GetComponent<Toggle>().isOn = true;
+                        Dictionary.Instance.UpdateLayout();
+                    }
+                }
                 gameObject.SetActive(false);
             }
         }

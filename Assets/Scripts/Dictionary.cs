@@ -188,7 +188,9 @@ public class Dictionary : MonoBehaviour
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(transformCache);
         Canvas.ForceUpdateCanvases();
+
         selectedWordPosition = 0;
+
 
         foreach (var toggle in toggleGroupCache.ActiveToggles())
         {
