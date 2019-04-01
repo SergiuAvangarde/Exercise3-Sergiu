@@ -23,16 +23,16 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             if (wordInput.text.ToLower() == EditWordInput.Word.ToLower())
             {
-                Dictionary.Instance.SelectedWord = wordInput.text.ToLower();
-                Dictionary.Instance.Words[EditWordInput.Word] = descriptionInput.text;
-                Dictionary.Instance.RefreshWords();
+                GameManager.Instance.SelectedWord = wordInput.text.ToLower();
+                GameManager.Instance.Words[EditWordInput.Word] = descriptionInput.text;
+                GameManager.Instance.RefreshWords();
             }
             else
             {
-                Dictionary.Instance.SelectedWord = wordInput.text.ToLower();
-                Dictionary.Instance.Words.Remove(EditWordInput.Word);
-                Dictionary.Instance.Words.Add(wordInput.text, descriptionInput.text);
-                Dictionary.Instance.RefreshWords();
+                GameManager.Instance.SelectedWord = wordInput.text.ToLower();
+                GameManager.Instance.Words.Remove(EditWordInput.Word);
+                GameManager.Instance.Words.Add(wordInput.text, descriptionInput.text);
+                GameManager.Instance.RefreshWords();
             }
         }
         else
@@ -46,7 +46,7 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// </summary>
     public void OpenEditPanel()
     {
-        Dictionary.Instance.EditWordPanel.SetActive(true);
+        GameManager.Instance.EditWordPanel.SetActive(true);
         wordInput.text = EditWordInput.Word;
         descriptionInput.text = EditWordInput.Definition;
     }
@@ -56,8 +56,8 @@ public class EditWords : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     /// </summary>
     public void OnRemovePress()
     {
-        Dictionary.Instance.Words.Remove(EditWordInput.Word);
-        Dictionary.Instance.RefreshWords();
+        GameManager.Instance.Words.Remove(EditWordInput.Word);
+        GameManager.Instance.RefreshWords();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -24,7 +24,7 @@ public class SearchWords : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(SearchField.text))
         {
-            foreach (var word in Dictionary.Instance.WordsPool)
+            foreach (var word in GameManager.Instance.WordsPool)
             {
                 string wordText = word.GetComponent<WordDefinition>().Word.ToLower().Trim();
                 string searchtext = SearchField.text.ToLower().Trim();
@@ -40,13 +40,13 @@ public class SearchWords : MonoBehaviour
         }
         else
         {
-            foreach (var word in Dictionary.Instance.WordsPool)
+            foreach (var word in GameManager.Instance.WordsPool)
             {
                 word.SetActive(true);
             }
         }
 
-        allInactive = !Dictionary.Instance.WordsPool.Any(obj => obj.activeInHierarchy == true);
+        allInactive = !GameManager.Instance.WordsPool.Any(obj => obj.activeInHierarchy == true);
         if (allInactive)
         {
             warningText.text = "This word is not found in the dictionary, press Add Word to add it to the Dictionary!";

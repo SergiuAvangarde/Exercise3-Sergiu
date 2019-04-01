@@ -14,19 +14,19 @@ public class SelectWord : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (Dictionary.Instance.Words.ContainsKey(EditWordInput.SelectedDefinitionWord))
+        if (GameManager.Instance.Words.ContainsKey(EditWordInput.SelectedDefinitionWord))
         {
             wordInDictionary.text = "This word is in the dictionary, Click to go to word";
-            Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
-            Dictionary.Instance.IsInDictionary = true;
-            Dictionary.Instance.AddToDictionary = false;
+            GameManager.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
+            GameManager.Instance.IsInDictionary = true;
+            GameManager.Instance.AddToDictionary = false;
         }
         else
         {
             wordInDictionary.text = "Click to add this word to dictionary.";
-            Dictionary.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
-            Dictionary.Instance.IsInDictionary = false;
-            Dictionary.Instance.AddToDictionary = true;
+            GameManager.Instance.SelectedWord = EditWordInput.SelectedDefinitionWord;
+            GameManager.Instance.IsInDictionary = false;
+            GameManager.Instance.AddToDictionary = true;
         }
     }
 
@@ -36,8 +36,8 @@ public class SelectWord : MonoBehaviour
     private void OnDisable()
     {
         wordInDictionary.text = "";
-        Dictionary.Instance.SelectedWord = "";
-        Dictionary.Instance.IsInDictionary = false;
-        Dictionary.Instance.AddToDictionary = false;
+        GameManager.Instance.SelectedWord = "";
+        GameManager.Instance.IsInDictionary = false;
+        GameManager.Instance.AddToDictionary = false;
     }
 }

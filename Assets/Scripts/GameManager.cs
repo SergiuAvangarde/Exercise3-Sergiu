@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using System.Linq;
 using System.IO;
 
-public class Dictionary : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static Dictionary Instance = null;
+    public static GameManager Instance = null;
 
     public SortedDictionary<string, string> Words = new SortedDictionary<string, string>();
     public List<GameObject> WordsPool { get; set; } = new List<GameObject>();

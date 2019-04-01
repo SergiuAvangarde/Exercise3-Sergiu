@@ -35,10 +35,10 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         Image = GetComponent<Image>();
         toggleButton = GetComponent<Toggle>();
         definitionCachedTransform = gameObject.GetComponent<RectTransform>();
-        popUpCachedTransform = Dictionary.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
-        wordPopUpCachedTransform = Dictionary.Instance.WordPopUp.GetComponent<RectTransform>();
-        popUpCachedScript = Dictionary.Instance.EditOrRemovePopUp.GetComponent<EditWords>();
-        wordPopUpCachedScript = Dictionary.Instance.WordPopUp.GetComponent<SelectWord>();
+        popUpCachedTransform = GameManager.Instance.EditOrRemovePopUp.GetComponent<RectTransform>();
+        wordPopUpCachedTransform = GameManager.Instance.WordPopUp.GetComponent<RectTransform>();
+        popUpCachedScript = GameManager.Instance.EditOrRemovePopUp.GetComponent<EditWords>();
+        wordPopUpCachedScript = GameManager.Instance.WordPopUp.GetComponent<SelectWord>();
         wordDefinitionCache = GetComponent<WordDefinition>();
     }
 
@@ -82,7 +82,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
             selectedWordIndex = -1;
             SelectedDefinitionWord = "";
-            Dictionary.Instance.WordPopUp.SetActive(false);
+            GameManager.Instance.WordPopUp.SetActive(false);
         }
 
         // if the mouse hovers over a word
@@ -91,7 +91,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
             // if the toggle of the word is active
             if (toggleButton.isOn)
             {
-                Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
+                GameManager.Instance.EditOrRemovePopUp.SetActive(true);
                 if (Input.mousePosition.x <= 210f)
                 {
                     popUpCachedTransform.anchoredPosition = new Vector3(210, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
@@ -170,7 +170,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
                 //{
                 //    SelectedDefinitionWord = temporaryWord;
                 //}
-                Dictionary.Instance.WordPopUp.SetActive(true);
+                GameManager.Instance.WordPopUp.SetActive(true);
             }
         }
     }
@@ -196,8 +196,8 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             Image.enabled = true;
             MouseOvertext = true;
-            Dictionary.Instance.EditWordPanel.SetActive(false);
-            Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
+            GameManager.Instance.EditWordPanel.SetActive(false);
+            GameManager.Instance.EditOrRemovePopUp.SetActive(true);
             if (Input.mousePosition.x <= 210f)
             {
                 popUpCachedTransform.anchoredPosition = new Vector3(210, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
@@ -218,17 +218,17 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             Image.enabled = false;
             MouseOvertext = false;
-            Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
+            GameManager.Instance.EditOrRemovePopUp.SetActive(false);
         }
 
-        if (Dictionary.Instance.SelectedWord == SelectedDefinitionWord && Dictionary.Instance.IsInDictionary)
+        if (GameManager.Instance.SelectedWord == SelectedDefinitionWord && GameManager.Instance.IsInDictionary)
         {
-            Dictionary.Instance.ActiveSelectedWord();
+            GameManager.Instance.ActiveSelectedWord();
         }
 
-        if (Dictionary.Instance.SelectedWord == SelectedDefinitionWord && Dictionary.Instance.AddToDictionary)
+        if (GameManager.Instance.SelectedWord == SelectedDefinitionWord && GameManager.Instance.AddToDictionary)
         {
-            Dictionary.Instance.AddWordPanel.SetActive(true);
+            GameManager.Instance.AddWordPanel.SetActive(true);
         }
     }
 
@@ -237,7 +237,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         if (toggleButton.isOn)
         {
             MouseOvertext = true;
-            Dictionary.Instance.EditOrRemovePopUp.SetActive(true);
+            GameManager.Instance.EditOrRemovePopUp.SetActive(true);
             if (Input.mousePosition.x <= 210f)
             {
                 popUpCachedTransform.anchoredPosition = new Vector3(210, definitionCachedTransform.position.y + definitionCachedTransform.rect.height / 2, Input.mousePosition.z);
@@ -257,7 +257,7 @@ public class WordDefinition : MonoBehaviour, IPointerClickHandler, IPointerEnter
         else
         {
             MouseOvertext = false;
-            Dictionary.Instance.EditOrRemovePopUp.SetActive(false);
+            GameManager.Instance.EditOrRemovePopUp.SetActive(false);
         }
     }
 

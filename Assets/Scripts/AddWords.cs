@@ -18,9 +18,9 @@ public class AddWords : MonoBehaviour
         {
             wordInput.text = searchInput.SearchField.text;
         }
-        if (!string.IsNullOrEmpty(Dictionary.Instance.SelectedWord))
+        if (!string.IsNullOrEmpty(GameManager.Instance.SelectedWord))
         {
-            wordInput.text = Dictionary.Instance.SelectedWord;
+            wordInput.text = GameManager.Instance.SelectedWord;
         }
     }
 
@@ -32,18 +32,18 @@ public class AddWords : MonoBehaviour
         warningText.text = "";
         if (!string.IsNullOrEmpty(wordInput.text) && !string.IsNullOrEmpty(descriptionInput.text))
         {
-            Dictionary.Instance.SelectedWord = wordInput.text.ToLower();
-            if (Dictionary.Instance.Words.ContainsKey(Dictionary.Instance.SelectedWord))
+            GameManager.Instance.SelectedWord = wordInput.text.ToLower();
+            if (GameManager.Instance.Words.ContainsKey(GameManager.Instance.SelectedWord))
             {
                 warningText.text = "This word is already in the dictionary, you can edit or remove it here.";
-                Dictionary.Instance.ActiveSelectedWord();
+                GameManager.Instance.ActiveSelectedWord();
                 gameObject.SetActive(false);
             }
             else
             {
-                Dictionary.Instance.Words.Add(Dictionary.Instance.SelectedWord, descriptionInput.text);
-                Dictionary.Instance.InstantiateWordObj();
-                Dictionary.Instance.RefreshWords();
+                GameManager.Instance.Words.Add(GameManager.Instance.SelectedWord, descriptionInput.text);
+                GameManager.Instance.InstantiateWordObj();
+                GameManager.Instance.RefreshWords();
                 wordInput.text = "";
                 descriptionInput.text = "";
                 searchInput.SearchField.text = "";
